@@ -17,10 +17,7 @@ namespace Hotel.Dominio.ReglasNegocio
         public string DetalleTemporada { get; init; } = string.Empty;
     }
 
-    /// <summary>
-    /// Regla de negocio pura del motor financiero:
-    /// CostoBase = (Noches * TarifaBase * FactorTemporada) + RecargoPersonasExtra - DescuentoCliente, más IVA.
-    /// </summary>
+    // Calculo de tarifa: (Noches * TarifaBase * FactorTemporada) + RecargoPersonasExtra - DescuentoCliente + IVA
     public static class CalculadoraTarifas
     {
         public const decimal PorcentajeAnticipoDefault = 0.30m;
@@ -73,8 +70,8 @@ namespace Hotel.Dominio.ReglasNegocio
             {
                 (true, true) => "Temporada Alta (+25%) y Fin de Semana (+15%)",
                 (true, false) => "Temporada Alta (+25%)",
-                (false, true) => "Tarifa de Fin de Semana Vie/Sáb (+15%)",
-                _ => "Temporada Regular (Factor 1.00)"
+                (false, true) => "Fin de Semana Vie/Sab (+15%)",
+                _ => "Temporada Regular"
             };
 
             return new ResultadoCalculoTarifa
@@ -98,7 +95,6 @@ namespace Hotel.Dominio.ReglasNegocio
         private static decimal ObtenerFactorDia(DateOnly dia, out bool esFinSemana, out bool esTemporadaAlta)
         {
             esFinSemana = dia.DayOfWeek is DayOfWeek.Friday or DayOfWeek.Saturday;
-            // Temporadas de alta demanda: Verano (dic-feb / jul), Semana Santa (abr), Navidad/Fin de año (15 dic - 5 ene)
             esTemporadaAlta =
                 (dia.Month == 12 && dia.Day >= 15) ||
                 (dia.Month == 1 && dia.Day <= 10) ||

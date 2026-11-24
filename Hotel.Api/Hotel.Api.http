@@ -1,6 +1,68 @@
-@Hotel.Api_HostAddress = http://localhost:5295
+@Hotel_Api_HostAddress = http://localhost:5295
 
-GET {{Hotel.Api_HostAddress}}/weatherforecast/
+### 1. Verificar conexion API y SQL Server
+GET {{Hotel_Api_HostAddress}}/api/health
 Accept: application/json
 
-###
+### 2. Listar tipos de habitacion
+GET {{Hotel_Api_HostAddress}}/api/tiposhabitacion
+Accept: application/json
+
+### 3. Listar todas las habitaciones
+GET {{Hotel_Api_HostAddress}}/api/habitaciones
+Accept: application/json
+
+### 4. Buscar habitaciones disponibles por rango de fechas y huespedes
+GET {{Hotel_Api_HostAddress}}/api/habitaciones/disponibles?fechaInicio=2026-12-05&fechaFin=2026-12-08&huespedes=2
+Accept: application/json
+
+### 5. Listar clientes
+GET {{Hotel_Api_HostAddress}}/api/clientes
+Accept: application/json
+
+### 6. Cotizar reservacion (calcula noches, temporada, descuentos, IVA y anticipo)
+POST {{Hotel_Api_HostAddress}}/api/reservaciones/cotizar
+Content-Type: application/json
+
+{
+  "habitacionId": 3,
+  "clienteId": 1,
+  "fechaInicio": "2026-12-05",
+  "fechaFin": "2026-12-08",
+  "cantidadHuespedes": 2
+}
+
+### 7. Crear reservacion con anticipo (valida traslapes en transaccion Serializable)
+POST {{Hotel_Api_HostAddress}}/api/reservaciones
+Content-Type: application/json
+
+{
+  "clienteId": 1,
+  "habitacionId": 3,
+  "fechaInicio": "2026-12-05",
+  "fechaFin": "2026-12-08",
+  "horaLlegadaPactada": "15:00:00",
+  "cantidadHuespedes": 2,
+  "acompanantes": "Invitado",
+  "observaciones": "Prueba de creacion desde API",
+  "confirmarConAnticipo": true,
+  "montoAnticipoPagado": 150.00,
+  "metodoPagoAnticipo": "TarjetaCredito",
+  "referenciaPagoAnticipo": "AUTH-1002"
+}
+
+### 8. Matriz visual de ocupacion por fechas
+GET {{Hotel_Api_HostAddress}}/api/reservaciones/matriz-ocupacion?fechaInicio=2026-11-24&fechaFin=2026-12-05
+Accept: application/json
+
+### 9. Ver estado de cuenta / folio de la reservacion 1
+GET {{Hotel_Api_HostAddress}}/api/reservaciones/1/estado-cuenta
+Accept: application/json
+
+### 10. Dashboard KPIs
+GET {{Hotel_Api_HostAddress}}/api/reportes/dashboard
+Accept: application/json
+
+### 11. Platillos mas solicitados (LINQ GroupBy + OrderByDescending + Take)
+GET {{Hotel_Api_HostAddress}}/api/reportes/platillos-top?top=5
+Accept: application/json

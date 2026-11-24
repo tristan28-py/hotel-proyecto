@@ -1,9 +1,6 @@
 namespace Hotel.Dominio.ReglasNegocio
 {
-    /// <summary>
-    /// Value Object para representar un intervalo semiabierto [FechaInicio, FechaFin).
-    /// Una salida el mismo día de la siguiente entrada no constituye traslape.
-    /// </summary>
+    // Intervalo [FechaInicio, FechaFin) donde una salida el mismo dia de la entrada no traslapa
     public sealed class RangoFechas
     {
         public DateOnly FechaInicio { get; }
@@ -20,9 +17,7 @@ namespace Hotel.Dominio.ReglasNegocio
 
         public int Noches => FechaFin.DayNumber - FechaInicio.DayNumber;
 
-        /// <summary>
-        /// Regla del proyecto: nuevaEntrada &lt; salidaExistente &amp;&amp; nuevaSalida &gt; entradaExistente
-        /// </summary>
+        // Regla: nuevaEntrada < salidaExistente && nuevaSalida > entradaExistente
         public bool SeTraslapaCon(RangoFechas otro) =>
             FechaInicio < otro.FechaFin && FechaFin > otro.FechaInicio;
 

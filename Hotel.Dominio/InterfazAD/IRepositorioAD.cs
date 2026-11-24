@@ -13,9 +13,7 @@ namespace Hotel.Dominio.InterfazAD
         Task<Result<TEntity?>> ObtenerEntidadAsync(Expression<Func<TEntity, bool>> objPredicado, List<string>? objIncludes = null);
         Task<Result<int?>> ContarAsync(Expression<Func<TEntity, bool>> objPredicado, List<string>? objIncludes = null);
 
-        /// <summary>
-        /// Expone IQueryable para ejecutar filtros, proyecciones y agregaciones LINQ directamente en SQL Server.
-        /// </summary>
+        // IQueryable para ejecutar las consultas LINQ directo en SQL Server
         IQueryable<TEntity> ObtenerQueryable(bool tracking = false);
 
         Task<Result<List<TResult>>> EjecutarConsultaAsync<TResult>(

@@ -122,9 +122,9 @@ namespace Hotel.WindowsForms.Helpers
                         {
                             col.Item().Text($"Resumen de Ingresos ({ingresos.FechaInicio:dd/MM/yyyy} - {ingresos.FechaFin:dd/MM/yyyy})")
                                 .FontSize(12).Bold();
-                            col.Item().Text($"• Pagos recibidos: {ingresos.TotalPagosRecibidos:C2} ({ingresos.CantidadTransacciones} transacciones)");
-                            col.Item().Text($"• Hospedaje proyectado: {ingresos.TotalHospedajeProyectado:C2}");
-                            col.Item().Text($"• Consumos restaurante: {ingresos.TotalConsumosRestaurante:C2}");
+                            col.Item().Text($"- Pagos recibidos: {ingresos.TotalPagosRecibidos:C2} ({ingresos.CantidadTransacciones} transacciones)");
+                            col.Item().Text($"- Hospedaje proyectado: {ingresos.TotalHospedajeProyectado:C2}");
+                            col.Item().Text($"- Consumos restaurante: {ingresos.TotalConsumosRestaurante:C2}");
                         }
 
                         col.Item().Text("Ocupación Mensual").FontSize(12).Bold();
@@ -210,12 +210,12 @@ namespace Hotel.WindowsForms.Helpers
                     {
                         col.Spacing(10);
                         col.Item().Text("Desglose de Cargos").FontSize(12).Bold();
-                        col.Item().Text($"• Hospedaje (incluye impuestos/temporada): {cuenta.CostoHospedaje:C2}");
-                        col.Item().Text($"• Consumos de Restaurante / Room Service: {cuenta.TotalRestaurante:C2}");
-                        col.Item().Text($"• Ajustes Check-out: {cuenta.AjustesCheckOut:C2}");
-                        col.Item().Text($"• Total General: {cuenta.TotalGeneral:C2}").Bold();
-                        col.Item().Text($"• Total Pagado: {cuenta.TotalPagado:C2}");
-                        col.Item().Text($"• Saldo Pendiente: {cuenta.SaldoPendiente:C2}").Bold();
+                        col.Item().Text($"- Hospedaje (incluye impuestos/temporada): {cuenta.CostoHospedaje:C2}");
+                        col.Item().Text($"- Consumos de Restaurante / Room Service: {cuenta.TotalRestaurante:C2}");
+                        col.Item().Text($"- Ajustes Check-out: {cuenta.AjustesCheckOut:C2}");
+                        col.Item().Text($"- Total General: {cuenta.TotalGeneral:C2}").Bold();
+                        col.Item().Text($"- Total Pagado: {cuenta.TotalPagado:C2}");
+                        col.Item().Text($"- Saldo Pendiente: {cuenta.SaldoPendiente:C2}").Bold();
 
                         if (cuenta.Pagos.Count > 0)
                         {
