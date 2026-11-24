@@ -19,7 +19,7 @@ namespace Hotel.WindowsForms
             string apiUrl = config["ApiSettings:BaseUrl"] ?? "http://localhost:5295";
             var appContext = new HotelAppContext(apiUrl);
 
-            Application.Run(new FrmPrincipal(appContext));
+            Application.Run(new FrmLogin(appContext));
         }
     }
 }

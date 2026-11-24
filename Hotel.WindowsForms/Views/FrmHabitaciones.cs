@@ -14,6 +14,7 @@ namespace Hotel.WindowsForms.Views
         {
             InitializeComponent();
             cboEstado.SelectedIndex = 0;
+            UiTheme.EstilizarGrid(dgvHabitaciones);
         }
 
         public FrmHabitaciones(HotelAppContext app) : this()
@@ -100,24 +101,70 @@ namespace Hotel.WindowsForms.Views
             flpMapa.Controls.Clear();
             foreach (var h in res.Data)
             {
-                Color fondo = h.Activa ? UiTheme.ColorEstadoHabitacion(h.EstadoOperativo) : Color.DarkGray;
-                Color texto = h.EstadoOperativo == "EnLimpieza" ? Color.Black : Color.White;
+                Color acento = h.Activa ? UiTheme.ColorEstadoHabitacion(h.EstadoOperativo) : Color.DarkGray;
 
-                var btn = new Button
+                var card = new Panel
                 {
-                    Width = 148,
-                    Height = 104,
+                    Width = 178,
+                    Height = 136,
                     Margin = new Padding(8),
-                    BackColor = fondo,
-                    ForeColor = texto,
-                    FlatStyle = FlatStyle.Flat,
-                    Cursor = Cursors.Hand,
-                    Font = new Font("Segoe UI", 9f, FontStyle.Bold),
-                    Text = $"Hab. {h.Numero}\nPiso {h.Piso} - {h.TipoHabitacionNombre}\n[{h.EstadoOperativo}]\n{h.PrecioBasePorNoche:C2}/noche"
+                    BackColor = Color.White,
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Cursor = Cursors.Hand
                 };
-                btn.FlatAppearance.BorderSize = 0;
-                btn.Click += (_, _) => CargarEnFormulario(h);
-                flpMapa.Controls.Add(btn);
+
+                var barra = new Panel { Dock = DockStyle.Top, Height = 8, BackColor = acento };
+                var lblEstadoBadge = new Label
+                {
+                    Text = h.EstadoOperativo.ToUpperInvariant(),
+                    BackColor = acento,
+                    ForeColor = h.EstadoOperativo == "EnLimpieza" ? Color.Black : Color.White,
+                    Font = new Font("Segoe UI", 7.5f, FontStyle.Bold),
+                    Location = new Point(10, 14),
+                    Size = new Size(102, 18),
+                    TextAlign = ContentAlignment.MiddleCenter
+                };
+                var lblNum = new Label
+                {
+                    Text = $"Hab. {h.Numero}",
+                    Font = new Font("Georgia", 13f, FontStyle.Bold),
+                    ForeColor = UiTheme.SidebarFondo,
+                    Location = new Point(10, 36),
+                    Size = new Size(156, 24)
+                };
+                var lblTipo = new Label
+                {
+                    Text = $"{h.TipoHabitacionNombre} (Piso {h.Piso})",
+                    Font = new Font("Segoe UI", 8.5f),
+                    ForeColor = UiTheme.TextoSuave,
+                    Location = new Point(10, 62),
+                    Size = new Size(156, 18)
+                };
+                var lblTarifa = new Label
+                {
+                    Text = $"{h.PrecioBasePorNoche:C2} / noche",
+                    Font = new Font("Segoe UI", 9.5f, FontStyle.Bold),
+                    ForeColor = UiTheme.DoradoHotel,
+                    Location = new Point(10, 84),
+                    Size = new Size(156, 20)
+                };
+                var lblExtras = new Label
+                {
+                    Text = (h.TieneVistaMar ? "Vista Mar " : "") + (h.TieneJacuzzi ? "Jacuzzi" : ""),
+                    Font = new Font("Segoe UI", 8f, FontStyle.Bold),
+                    ForeColor = Color.FromArgb(21, 128, 61),
+                    Location = new Point(10, 108),
+                    Size = new Size(156, 18)
+                };
+
+                EventHandler onSelect = (_, _) => CargarEnFormulario(h);
+                card.Click += onSelect;
+                foreach (Control child in new Control[] { barra, lblEstadoBadge, lblNum, lblTipo, lblTarifa, lblExtras })
+                {
+                    child.Click += onSelect;
+                    card.Controls.Add(child);
+                }
+                flpMapa.Controls.Add(card);
             }
             flpMapa.ResumeLayout();
         }

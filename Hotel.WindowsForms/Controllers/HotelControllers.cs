@@ -8,12 +8,34 @@ namespace Hotel.WindowsForms.Controllers
     {
         public HotelApiClient Api { get; }
         public HotelRealtimeService Realtime { get; }
+        public LoginResponseModel? SesionActual { get; set; }
 
         public HotelAppContext(string apiBaseUrl)
         {
             Api = new HotelApiClient(apiBaseUrl);
             Realtime = new HotelRealtimeService();
         }
+    }
+
+    public class AuthMvcController
+    {
+        private readonly HotelApiClient _api;
+        public AuthMvcController(HotelApiClient api) => _api = api;
+
+        public Task<Result<LoginResponseModel>> LoginAsync(LoginRequestModel req) =>
+            _api.PostAsync<LoginResponseModel>("api/auth/login", req);
+
+        public Task<Result<LoginResponseModel>> RegistrarHuespedAsync(RegistroHuespedRequestModel req) =>
+            _api.PostAsync<LoginResponseModel>("api/auth/registro", req);
+
+        public Task<Result<List<UsuarioModel>>> ListarUsuariosAsync() =>
+            _api.GetAsync<List<UsuarioModel>>("api/auth/usuarios");
+
+        public Task<Result<UsuarioModel>> CrearUsuarioAsync(CrearUsuarioRequestModel req) =>
+            _api.PostAsync<UsuarioModel>("api/auth/usuarios", req);
+
+        public Task<Result<UsuarioModel>> CambiarEstadoAsync(int id, bool activo) =>
+            _api.PatchAsync<UsuarioModel>($"api/auth/usuarios/{id}/estado?activo={activo}");
     }
 
     public class HabitacionesMvcController
@@ -84,10 +106,11 @@ namespace Hotel.WindowsForms.Controllers
         private readonly HotelApiClient _api;
         public ReservacionesMvcController(HotelApiClient api) => _api = api;
 
-        public Task<Result<List<ReservacionModel>>> BuscarAsync(string? buscar = null, string? estado = null, DateOnly? desde = null, DateOnly? hasta = null)
+        public Task<Result<List<ReservacionModel>>> BuscarAsync(string? buscar = null, string? estado = null, DateOnly? desde = null, DateOnly? hasta = null, int? clienteId = null)
         {
             var qs = new List<string>();
             if (!string.IsNullOrWhiteSpace(buscar)) qs.Add($"buscar={Uri.EscapeDataString(buscar)}");
+            if (clienteId.HasValue) qs.Add($"clienteId={clienteId.Value}");
             if (!string.IsNullOrWhiteSpace(estado)) qs.Add($"estado={Uri.EscapeDataString(estado)}");
             if (desde.HasValue) qs.Add($"desde={desde.Value:yyyy-MM-dd}");
             if (hasta.HasValue) qs.Add($"hasta={hasta.Value:yyyy-MM-dd}");

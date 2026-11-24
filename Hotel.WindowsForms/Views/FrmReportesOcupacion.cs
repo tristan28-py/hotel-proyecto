@@ -17,6 +17,9 @@ namespace Hotel.WindowsForms.Views
             dtpInicio.Value = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
             dtpFin.Value = DateTime.Today;
             numAnio.Value = DateTime.Today.Year;
+            UiTheme.EstilizarGrid(dgvMensual);
+            UiTheme.EstilizarGrid(dgvIngresos);
+            UiTheme.EstilizarGrid(dgvPlatillosTop);
         }
 
         public FrmReportesOcupacion(HotelAppContext app) : this()

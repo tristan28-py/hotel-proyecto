@@ -80,4 +80,13 @@ namespace Hotel.Dominio.Enums
 
         public static readonly string[] Todos = [Recibo, Factura];
     }
+
+    public static class RolUsuarioConst
+    {
+        public const string Administrador = "Administrador";
+        public const string Recepcionista = "Recepcionista";
+        public const string Cliente = "Cliente";
+
+        public static readonly string[] Todos = [Administrador, Recepcionista, Cliente];
+    }
 }

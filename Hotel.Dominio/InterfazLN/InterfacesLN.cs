@@ -89,4 +89,13 @@ namespace Hotel.Dominio.InterfazLN
         Task<Result<ReporteIngresosDTO>> ObtenerReporteIngresosAsync(DateOnly fechaInicio, DateOnly fechaFin);
         Task<Result<IEnumerable<PlatilloMasSolicitadoDTO>>> ObtenerPlatillosMasSolicitadosAsync(int top = 10);
     }
+
+    public interface IAuthLN
+    {
+        Task<Result<LoginResponseDTO>> LoginAsync(LoginRequestDTO request);
+        Task<Result<LoginResponseDTO>> RegistrarHuespedAsync(RegistroHuespedRequestDTO request);
+        Task<Result<IEnumerable<ETUsuario>>> ListarUsuariosAsync();
+        Task<Result<ETUsuario>> CrearUsuarioAsync(CrearUsuarioRequestDTO request);
+        Task<Result<ETUsuario>> CambiarEstadoAsync(int usuarioId, bool activo);
+    }
 }

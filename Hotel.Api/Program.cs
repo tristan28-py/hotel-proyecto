@@ -29,6 +29,7 @@ builder.Services.AddScoped<IReservacionLN, ReservacionLN>();
 builder.Services.AddScoped<IPagoLN, PagoLN>();
 builder.Services.AddScoped<IRestauranteLN, RestauranteLN>();
 builder.Services.AddScoped<IReporteLN, ReporteLN>();
+builder.Services.AddScoped<IAuthLN, AuthLN>();
 
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<INotificadorTiempoReal, SignalRNotificador>();

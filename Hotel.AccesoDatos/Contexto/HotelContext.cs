@@ -30,6 +30,8 @@ public partial class HotelContext : DbContext
 
     public virtual DbSet<TiposHabitacion> TiposHabitacions { get; set; }
 
+    public virtual DbSet<Usuario> Usuarios { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<CategoriasPlatillo>(entity =>
@@ -199,6 +201,22 @@ public partial class HotelContext : DbContext
             entity.Property(e => e.Descripcion).HasMaxLength(300);
             entity.Property(e => e.Nombre).HasMaxLength(80);
             entity.Property(e => e.PrecioBasePorNoche).HasColumnType("decimal(10, 2)");
+        });
+
+        modelBuilder.Entity<Usuario>(entity =>
+        {
+            entity.HasIndex(e => e.Username, "UQ_Usuarios_Username").IsUnique();
+
+            entity.Property(e => e.Activo).HasDefaultValue(true, "DF_Usuarios_Activo");
+            entity.Property(e => e.FechaCreacion).HasDefaultValueSql("(sysutcdatetime())", "DF_Usuarios_FechaCreacion");
+            entity.Property(e => e.NombreCompleto).HasMaxLength(120);
+            entity.Property(e => e.PasswordHash).HasMaxLength(256);
+            entity.Property(e => e.Rol).HasMaxLength(30);
+            entity.Property(e => e.Username).HasMaxLength(50);
+
+            entity.HasOne(d => d.Cliente).WithMany(p => p.Usuarios)
+                .HasForeignKey(d => d.ClienteId)
+                .HasConstraintName("FK_Usuarios_Clientes");
         });
 
         OnModelCreatingPartial(modelBuilder);

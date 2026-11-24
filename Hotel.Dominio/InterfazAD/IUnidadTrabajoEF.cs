@@ -14,6 +14,7 @@ namespace Hotel.Dominio.InterfazAD
         IRepositorioAD<Platillo> TPlatillo { get; }
         IRepositorioAD<PedidosRestaurante> TPedidoRestaurante { get; }
         IRepositorioAD<DetallePedido> TDetallePedido { get; }
+        IRepositorioAD<Usuario> TUsuario { get; }
 
         int Completar();
         Task<int> CompletarAsync();

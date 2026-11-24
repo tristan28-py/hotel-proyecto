@@ -18,13 +18,13 @@ namespace Hotel.WindowsForms.Views
         private void InitializeComponent()
         {
             pnlSuperior = new Panel();
+            btnCerrarSesion = new Button();
+            lblUsuarioRol = new Label();
             lblEstadoRealtime = new Label();
-            btnReconectar = new Button();
-            txtApiUrl = new TextBox();
-            lblServidor = new Label();
             lblTituloApp = new Label();
             btnMenuToggle = new Button();
             pnlMenuLateral = new Panel();
+            btnUsuarios = new Button();
             btnReportes = new Button();
             btnPlatillos = new Button();
             btnRestaurante = new Button();
@@ -33,9 +33,15 @@ namespace Hotel.WindowsForms.Views
             btnNuevaReserva = new Button();
             btnTiposHabitacion = new Button();
             btnHabitaciones = new Button();
+            btnMisReservas = new Button();
+            btnExplorarSuites = new Button();
             btnInicio = new Button();
             pnlContenedor = new Panel();
             pnlDashboard = new Panel();
+            pnlHero = new Panel();
+            lblHeroSubtitulo = new Label();
+            lblHeroTitulo = new Label();
+            pnlLineaHero = new Panel();
             btnAccesoRestaurante = new Button();
             btnAccesoCheckIn = new Button();
             btnAccesoReserva = new Button();
@@ -58,11 +64,11 @@ namespace Hotel.WindowsForms.Views
             lblTitOcupacion = new Label();
             pnlAlertaLimpieza = new Panel();
             lblAlertaLimpieza = new Label();
-            lblTituloDashboard = new Label();
             pnlSuperior.SuspendLayout();
             pnlMenuLateral.SuspendLayout();
             pnlContenedor.SuspendLayout();
             pnlDashboard.SuspendLayout();
+            pnlHero.SuspendLayout();
             pnlCardIngresos.SuspendLayout();
             pnlCardSalidas.SuspendLayout();
             pnlCardLlegadas.SuspendLayout();
@@ -73,17 +79,45 @@ namespace Hotel.WindowsForms.Views
             // pnlSuperior
             // 
             pnlSuperior.BackColor = Color.White;
+            pnlSuperior.Controls.Add(btnCerrarSesion);
+            pnlSuperior.Controls.Add(lblUsuarioRol);
             pnlSuperior.Controls.Add(lblEstadoRealtime);
-            pnlSuperior.Controls.Add(btnReconectar);
-            pnlSuperior.Controls.Add(txtApiUrl);
-            pnlSuperior.Controls.Add(lblServidor);
             pnlSuperior.Controls.Add(lblTituloApp);
             pnlSuperior.Controls.Add(btnMenuToggle);
             pnlSuperior.Dock = DockStyle.Top;
             pnlSuperior.Location = new Point(0, 0);
             pnlSuperior.Name = "pnlSuperior";
-            pnlSuperior.Size = new Size(1264, 56);
+            pnlSuperior.Size = new Size(1264, 58);
             pnlSuperior.TabIndex = 0;
+            // 
+            // btnCerrarSesion
+            // 
+            btnCerrarSesion.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnCerrarSesion.BackColor = Color.FromArgb(185, 28, 28);
+            btnCerrarSesion.FlatAppearance.BorderSize = 0;
+            btnCerrarSesion.FlatStyle = FlatStyle.Flat;
+            btnCerrarSesion.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnCerrarSesion.ForeColor = Color.White;
+            btnCerrarSesion.Location = new Point(1136, 14);
+            btnCerrarSesion.Name = "btnCerrarSesion";
+            btnCerrarSesion.Size = new Size(114, 30);
+            btnCerrarSesion.TabIndex = 4;
+            btnCerrarSesion.Text = "Cerrar Sesion";
+            btnCerrarSesion.UseVisualStyleBackColor = false;
+            btnCerrarSesion.Click += btnCerrarSesion_Click;
+            // 
+            // lblUsuarioRol
+            // 
+            lblUsuarioRol.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblUsuarioRol.BackColor = Color.FromArgb(247, 245, 240);
+            lblUsuarioRol.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblUsuarioRol.ForeColor = Color.FromArgb(15, 30, 54);
+            lblUsuarioRol.Location = new Point(844, 14);
+            lblUsuarioRol.Name = "lblUsuarioRol";
+            lblUsuarioRol.Size = new Size(282, 30);
+            lblUsuarioRol.TabIndex = 3;
+            lblUsuarioRol.Text = "Usuario | Rol";
+            lblUsuarioRol.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblEstadoRealtime
             // 
@@ -91,72 +125,34 @@ namespace Hotel.WindowsForms.Views
             lblEstadoRealtime.BackColor = Color.FromArgb(254, 243, 199);
             lblEstadoRealtime.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblEstadoRealtime.ForeColor = Color.FromArgb(146, 64, 14);
-            lblEstadoRealtime.Location = new Point(1082, 13);
+            lblEstadoRealtime.Location = new Point(666, 14);
             lblEstadoRealtime.Name = "lblEstadoRealtime";
             lblEstadoRealtime.Size = new Size(168, 30);
-            lblEstadoRealtime.TabIndex = 5;
+            lblEstadoRealtime.TabIndex = 2;
             lblEstadoRealtime.Text = "Conectando...";
             lblEstadoRealtime.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // btnReconectar
-            // 
-            btnReconectar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnReconectar.BackColor = Color.FromArgb(37, 99, 235);
-            btnReconectar.FlatAppearance.BorderSize = 0;
-            btnReconectar.FlatStyle = FlatStyle.Flat;
-            btnReconectar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnReconectar.ForeColor = Color.White;
-            btnReconectar.Location = new Point(975, 13);
-            btnReconectar.Name = "btnReconectar";
-            btnReconectar.Size = new Size(98, 30);
-            btnReconectar.TabIndex = 4;
-            btnReconectar.Text = "Conectar";
-            btnReconectar.UseVisualStyleBackColor = false;
-            btnReconectar.Click += btnReconectar_Click;
-            // 
-            // txtApiUrl
-            // 
-            txtApiUrl.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtApiUrl.Font = new Font("Segoe UI", 9.5F);
-            txtApiUrl.Location = new Point(724, 15);
-            txtApiUrl.Name = "txtApiUrl";
-            txtApiUrl.Size = new Size(243, 24);
-            txtApiUrl.TabIndex = 3;
-            txtApiUrl.Text = "http://localhost:5295";
-            // 
-            // lblServidor
-            // 
-            lblServidor.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblServidor.AutoSize = true;
-            lblServidor.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblServidor.ForeColor = Color.FromArgb(71, 85, 105);
-            lblServidor.Location = new Point(665, 18);
-            lblServidor.Name = "lblServidor";
-            lblServidor.Size = new Size(56, 15);
-            lblServidor.TabIndex = 2;
-            lblServidor.Text = "API URL:";
             // 
             // lblTituloApp
             // 
             lblTituloApp.AutoSize = true;
-            lblTituloApp.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblTituloApp.ForeColor = Color.FromArgb(30, 41, 59);
-            lblTituloApp.Location = new Point(62, 16);
+            lblTituloApp.Font = new Font("Georgia", 13F, FontStyle.Bold);
+            lblTituloApp.ForeColor = Color.FromArgb(15, 30, 54);
+            lblTituloApp.Location = new Point(68, 17);
             lblTituloApp.Name = "lblTituloApp";
             lblTituloApp.Size = new Size(340, 21);
             lblTituloApp.TabIndex = 1;
-            lblTituloApp.Text = "Sistema de Reservaciones y Gestion Hotelera";
+            lblTituloApp.Text = "HOTEL COSTA DORADA  |  PMS";
             // 
             // btnMenuToggle
             // 
-            btnMenuToggle.BackColor = Color.FromArgb(18, 32, 54);
+            btnMenuToggle.BackColor = Color.FromArgb(15, 30, 54);
             btnMenuToggle.FlatAppearance.BorderSize = 0;
             btnMenuToggle.FlatStyle = FlatStyle.Flat;
-            btnMenuToggle.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnMenuToggle.ForeColor = Color.White;
-            btnMenuToggle.Location = new Point(12, 11);
+            btnMenuToggle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnMenuToggle.ForeColor = Color.FromArgb(200, 157, 84);
+            btnMenuToggle.Location = new Point(12, 12);
             btnMenuToggle.Name = "btnMenuToggle";
-            btnMenuToggle.Size = new Size(42, 34);
+            btnMenuToggle.Size = new Size(46, 34);
             btnMenuToggle.TabIndex = 0;
             btnMenuToggle.Text = "Menu";
             btnMenuToggle.UseVisualStyleBackColor = false;
@@ -164,7 +160,8 @@ namespace Hotel.WindowsForms.Views
             // 
             // pnlMenuLateral
             // 
-            pnlMenuLateral.BackColor = Color.FromArgb(18, 32, 54);
+            pnlMenuLateral.BackColor = Color.FromArgb(15, 30, 54);
+            pnlMenuLateral.Controls.Add(btnUsuarios);
             pnlMenuLateral.Controls.Add(btnReportes);
             pnlMenuLateral.Controls.Add(btnPlatillos);
             pnlMenuLateral.Controls.Add(btnRestaurante);
@@ -173,25 +170,48 @@ namespace Hotel.WindowsForms.Views
             pnlMenuLateral.Controls.Add(btnNuevaReserva);
             pnlMenuLateral.Controls.Add(btnTiposHabitacion);
             pnlMenuLateral.Controls.Add(btnHabitaciones);
+            pnlMenuLateral.Controls.Add(btnMisReservas);
+            pnlMenuLateral.Controls.Add(btnExplorarSuites);
             pnlMenuLateral.Controls.Add(btnInicio);
             pnlMenuLateral.Dock = DockStyle.Left;
-            pnlMenuLateral.Location = new Point(0, 56);
+            pnlMenuLateral.Location = new Point(0, 58);
             pnlMenuLateral.Name = "pnlMenuLateral";
-            pnlMenuLateral.Size = new Size(230, 685);
+            pnlMenuLateral.Size = new Size(236, 683);
             pnlMenuLateral.TabIndex = 1;
+            // 
+            // btnUsuarios
+            // 
+            btnUsuarios.BackColor = Color.FromArgb(15, 30, 54);
+            btnUsuarios.Dock = DockStyle.Top;
+            btnUsuarios.FlatAppearance.BorderSize = 0;
+            btnUsuarios.FlatAppearance.MouseOverBackColor = Color.FromArgb(26, 49, 84);
+            btnUsuarios.FlatStyle = FlatStyle.Flat;
+            btnUsuarios.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnUsuarios.ForeColor = Color.FromArgb(200, 157, 84);
+            btnUsuarios.Location = new Point(0, 498);
+            btnUsuarios.Name = "btnUsuarios";
+            btnUsuarios.Padding = new Padding(14, 0, 0, 0);
+            btnUsuarios.Size = new Size(236, 44);
+            btnUsuarios.TabIndex = 11;
+            btnUsuarios.Text = "Usuarios y Roles";
+            btnUsuarios.TextAlign = ContentAlignment.MiddleLeft;
+            btnUsuarios.UseVisualStyleBackColor = false;
+            btnUsuarios.Click += btnUsuarios_Click;
             // 
             // btnReportes
             // 
-            btnReportes.BackColor = Color.FromArgb(18, 32, 54);
+            btnReportes.BackColor = Color.FromArgb(15, 30, 54);
+            btnReportes.Dock = DockStyle.Top;
             btnReportes.FlatAppearance.BorderSize = 0;
-            btnReportes.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 52, 84);
+            btnReportes.FlatAppearance.MouseOverBackColor = Color.FromArgb(26, 49, 84);
             btnReportes.FlatStyle = FlatStyle.Flat;
-            btnReportes.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnReportes.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnReportes.ForeColor = Color.White;
-            btnReportes.Location = new Point(8, 376);
+            btnReportes.Location = new Point(0, 454);
             btnReportes.Name = "btnReportes";
-            btnReportes.Size = new Size(214, 42);
-            btnReportes.TabIndex = 8;
+            btnReportes.Padding = new Padding(14, 0, 0, 0);
+            btnReportes.Size = new Size(236, 44);
+            btnReportes.TabIndex = 10;
             btnReportes.Text = "Reportes y Exportacion";
             btnReportes.TextAlign = ContentAlignment.MiddleLeft;
             btnReportes.UseVisualStyleBackColor = false;
@@ -199,16 +219,18 @@ namespace Hotel.WindowsForms.Views
             // 
             // btnPlatillos
             // 
-            btnPlatillos.BackColor = Color.FromArgb(18, 32, 54);
+            btnPlatillos.BackColor = Color.FromArgb(15, 30, 54);
+            btnPlatillos.Dock = DockStyle.Top;
             btnPlatillos.FlatAppearance.BorderSize = 0;
-            btnPlatillos.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 52, 84);
+            btnPlatillos.FlatAppearance.MouseOverBackColor = Color.FromArgb(26, 49, 84);
             btnPlatillos.FlatStyle = FlatStyle.Flat;
-            btnPlatillos.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnPlatillos.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnPlatillos.ForeColor = Color.White;
-            btnPlatillos.Location = new Point(8, 331);
+            btnPlatillos.Location = new Point(0, 410);
             btnPlatillos.Name = "btnPlatillos";
-            btnPlatillos.Size = new Size(214, 42);
-            btnPlatillos.TabIndex = 7;
+            btnPlatillos.Padding = new Padding(14, 0, 0, 0);
+            btnPlatillos.Size = new Size(236, 44);
+            btnPlatillos.TabIndex = 9;
             btnPlatillos.Text = "Catalogo de Platillos";
             btnPlatillos.TextAlign = ContentAlignment.MiddleLeft;
             btnPlatillos.UseVisualStyleBackColor = false;
@@ -216,33 +238,37 @@ namespace Hotel.WindowsForms.Views
             // 
             // btnRestaurante
             // 
-            btnRestaurante.BackColor = Color.FromArgb(18, 32, 54);
+            btnRestaurante.BackColor = Color.FromArgb(15, 30, 54);
+            btnRestaurante.Dock = DockStyle.Top;
             btnRestaurante.FlatAppearance.BorderSize = 0;
-            btnRestaurante.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 52, 84);
+            btnRestaurante.FlatAppearance.MouseOverBackColor = Color.FromArgb(26, 49, 84);
             btnRestaurante.FlatStyle = FlatStyle.Flat;
-            btnRestaurante.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnRestaurante.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnRestaurante.ForeColor = Color.White;
-            btnRestaurante.Location = new Point(8, 286);
+            btnRestaurante.Location = new Point(0, 366);
             btnRestaurante.Name = "btnRestaurante";
-            btnRestaurante.Size = new Size(214, 42);
-            btnRestaurante.TabIndex = 6;
-            btnRestaurante.Text = "Restaurante y Pedidos";
+            btnRestaurante.Padding = new Padding(14, 0, 0, 0);
+            btnRestaurante.Size = new Size(236, 44);
+            btnRestaurante.TabIndex = 8;
+            btnRestaurante.Text = "Restaurante / Room Service";
             btnRestaurante.TextAlign = ContentAlignment.MiddleLeft;
             btnRestaurante.UseVisualStyleBackColor = false;
             btnRestaurante.Click += btnRestaurante_Click;
             // 
             // btnClientes
             // 
-            btnClientes.BackColor = Color.FromArgb(18, 32, 54);
+            btnClientes.BackColor = Color.FromArgb(15, 30, 54);
+            btnClientes.Dock = DockStyle.Top;
             btnClientes.FlatAppearance.BorderSize = 0;
-            btnClientes.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 52, 84);
+            btnClientes.FlatAppearance.MouseOverBackColor = Color.FromArgb(26, 49, 84);
             btnClientes.FlatStyle = FlatStyle.Flat;
-            btnClientes.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnClientes.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnClientes.ForeColor = Color.White;
-            btnClientes.Location = new Point(8, 241);
+            btnClientes.Location = new Point(0, 322);
             btnClientes.Name = "btnClientes";
-            btnClientes.Size = new Size(214, 42);
-            btnClientes.TabIndex = 5;
+            btnClientes.Padding = new Padding(14, 0, 0, 0);
+            btnClientes.Size = new Size(236, 44);
+            btnClientes.TabIndex = 7;
             btnClientes.Text = "Clientes y Huespedes";
             btnClientes.TextAlign = ContentAlignment.MiddleLeft;
             btnClientes.UseVisualStyleBackColor = false;
@@ -250,16 +276,18 @@ namespace Hotel.WindowsForms.Views
             // 
             // btnCheckInOut
             // 
-            btnCheckInOut.BackColor = Color.FromArgb(18, 32, 54);
+            btnCheckInOut.BackColor = Color.FromArgb(15, 30, 54);
+            btnCheckInOut.Dock = DockStyle.Top;
             btnCheckInOut.FlatAppearance.BorderSize = 0;
-            btnCheckInOut.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 52, 84);
+            btnCheckInOut.FlatAppearance.MouseOverBackColor = Color.FromArgb(26, 49, 84);
             btnCheckInOut.FlatStyle = FlatStyle.Flat;
-            btnCheckInOut.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnCheckInOut.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnCheckInOut.ForeColor = Color.White;
-            btnCheckInOut.Location = new Point(8, 196);
+            btnCheckInOut.Location = new Point(0, 278);
             btnCheckInOut.Name = "btnCheckInOut";
-            btnCheckInOut.Size = new Size(214, 42);
-            btnCheckInOut.TabIndex = 4;
+            btnCheckInOut.Padding = new Padding(14, 0, 0, 0);
+            btnCheckInOut.Size = new Size(236, 44);
+            btnCheckInOut.TabIndex = 6;
             btnCheckInOut.Text = "Check-in / Out y Pagos";
             btnCheckInOut.TextAlign = ContentAlignment.MiddleLeft;
             btnCheckInOut.UseVisualStyleBackColor = false;
@@ -267,16 +295,18 @@ namespace Hotel.WindowsForms.Views
             // 
             // btnNuevaReserva
             // 
-            btnNuevaReserva.BackColor = Color.FromArgb(18, 32, 54);
+            btnNuevaReserva.BackColor = Color.FromArgb(15, 30, 54);
+            btnNuevaReserva.Dock = DockStyle.Top;
             btnNuevaReserva.FlatAppearance.BorderSize = 0;
-            btnNuevaReserva.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 52, 84);
+            btnNuevaReserva.FlatAppearance.MouseOverBackColor = Color.FromArgb(26, 49, 84);
             btnNuevaReserva.FlatStyle = FlatStyle.Flat;
-            btnNuevaReserva.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnNuevaReserva.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnNuevaReserva.ForeColor = Color.White;
-            btnNuevaReserva.Location = new Point(8, 151);
+            btnNuevaReserva.Location = new Point(0, 234);
             btnNuevaReserva.Name = "btnNuevaReserva";
-            btnNuevaReserva.Size = new Size(214, 42);
-            btnNuevaReserva.TabIndex = 3;
+            btnNuevaReserva.Padding = new Padding(14, 0, 0, 0);
+            btnNuevaReserva.Size = new Size(236, 44);
+            btnNuevaReserva.TabIndex = 5;
             btnNuevaReserva.Text = "Nueva Reservacion";
             btnNuevaReserva.TextAlign = ContentAlignment.MiddleLeft;
             btnNuevaReserva.UseVisualStyleBackColor = false;
@@ -284,16 +314,18 @@ namespace Hotel.WindowsForms.Views
             // 
             // btnTiposHabitacion
             // 
-            btnTiposHabitacion.BackColor = Color.FromArgb(18, 32, 54);
+            btnTiposHabitacion.BackColor = Color.FromArgb(15, 30, 54);
+            btnTiposHabitacion.Dock = DockStyle.Top;
             btnTiposHabitacion.FlatAppearance.BorderSize = 0;
-            btnTiposHabitacion.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 52, 84);
+            btnTiposHabitacion.FlatAppearance.MouseOverBackColor = Color.FromArgb(26, 49, 84);
             btnTiposHabitacion.FlatStyle = FlatStyle.Flat;
-            btnTiposHabitacion.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnTiposHabitacion.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnTiposHabitacion.ForeColor = Color.White;
-            btnTiposHabitacion.Location = new Point(8, 106);
+            btnTiposHabitacion.Location = new Point(0, 190);
             btnTiposHabitacion.Name = "btnTiposHabitacion";
-            btnTiposHabitacion.Size = new Size(214, 42);
-            btnTiposHabitacion.TabIndex = 2;
+            btnTiposHabitacion.Padding = new Padding(14, 0, 0, 0);
+            btnTiposHabitacion.Size = new Size(236, 44);
+            btnTiposHabitacion.TabIndex = 4;
             btnTiposHabitacion.Text = "Tipos de Habitacion";
             btnTiposHabitacion.TextAlign = ContentAlignment.MiddleLeft;
             btnTiposHabitacion.UseVisualStyleBackColor = false;
@@ -301,50 +333,92 @@ namespace Hotel.WindowsForms.Views
             // 
             // btnHabitaciones
             // 
-            btnHabitaciones.BackColor = Color.FromArgb(18, 32, 54);
+            btnHabitaciones.BackColor = Color.FromArgb(15, 30, 54);
+            btnHabitaciones.Dock = DockStyle.Top;
             btnHabitaciones.FlatAppearance.BorderSize = 0;
-            btnHabitaciones.FlatAppearance.MouseOverBackColor = Color.FromArgb(30, 52, 84);
+            btnHabitaciones.FlatAppearance.MouseOverBackColor = Color.FromArgb(26, 49, 84);
             btnHabitaciones.FlatStyle = FlatStyle.Flat;
-            btnHabitaciones.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnHabitaciones.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnHabitaciones.ForeColor = Color.White;
-            btnHabitaciones.Location = new Point(8, 61);
+            btnHabitaciones.Location = new Point(0, 146);
             btnHabitaciones.Name = "btnHabitaciones";
-            btnHabitaciones.Size = new Size(214, 42);
-            btnHabitaciones.TabIndex = 1;
+            btnHabitaciones.Padding = new Padding(14, 0, 0, 0);
+            btnHabitaciones.Size = new Size(236, 44);
+            btnHabitaciones.TabIndex = 3;
             btnHabitaciones.Text = "Mapa de Habitaciones";
             btnHabitaciones.TextAlign = ContentAlignment.MiddleLeft;
             btnHabitaciones.UseVisualStyleBackColor = false;
             btnHabitaciones.Click += btnHabitaciones_Click;
             // 
+            // btnMisReservas
+            // 
+            btnMisReservas.BackColor = Color.FromArgb(15, 30, 54);
+            btnMisReservas.Dock = DockStyle.Top;
+            btnMisReservas.FlatAppearance.BorderSize = 0;
+            btnMisReservas.FlatAppearance.MouseOverBackColor = Color.FromArgb(26, 49, 84);
+            btnMisReservas.FlatStyle = FlatStyle.Flat;
+            btnMisReservas.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnMisReservas.ForeColor = Color.White;
+            btnMisReservas.Location = new Point(0, 102);
+            btnMisReservas.Name = "btnMisReservas";
+            btnMisReservas.Padding = new Padding(14, 0, 0, 0);
+            btnMisReservas.Size = new Size(236, 44);
+            btnMisReservas.TabIndex = 2;
+            btnMisReservas.Text = "Mis Reservaciones y Folio";
+            btnMisReservas.TextAlign = ContentAlignment.MiddleLeft;
+            btnMisReservas.UseVisualStyleBackColor = false;
+            btnMisReservas.Click += btnMisReservas_Click;
+            // 
+            // btnExplorarSuites
+            // 
+            btnExplorarSuites.BackColor = Color.FromArgb(15, 30, 54);
+            btnExplorarSuites.Dock = DockStyle.Top;
+            btnExplorarSuites.FlatAppearance.BorderSize = 0;
+            btnExplorarSuites.FlatAppearance.MouseOverBackColor = Color.FromArgb(26, 49, 84);
+            btnExplorarSuites.FlatStyle = FlatStyle.Flat;
+            btnExplorarSuites.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            btnExplorarSuites.ForeColor = Color.White;
+            btnExplorarSuites.Location = new Point(0, 58);
+            btnExplorarSuites.Name = "btnExplorarSuites";
+            btnExplorarSuites.Padding = new Padding(14, 0, 0, 0);
+            btnExplorarSuites.Size = new Size(236, 44);
+            btnExplorarSuites.TabIndex = 1;
+            btnExplorarSuites.Text = "Explorar Suites y Reservar";
+            btnExplorarSuites.TextAlign = ContentAlignment.MiddleLeft;
+            btnExplorarSuites.UseVisualStyleBackColor = false;
+            btnExplorarSuites.Click += btnExplorarSuites_Click;
+            // 
             // btnInicio
             // 
-            btnInicio.BackColor = Color.FromArgb(37, 99, 235);
+            btnInicio.BackColor = Color.FromArgb(200, 157, 84);
+            btnInicio.Dock = DockStyle.Top;
             btnInicio.FlatAppearance.BorderSize = 0;
             btnInicio.FlatStyle = FlatStyle.Flat;
             btnInicio.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnInicio.ForeColor = Color.White;
-            btnInicio.Location = new Point(8, 16);
+            btnInicio.ForeColor = Color.FromArgb(15, 30, 54);
+            btnInicio.Location = new Point(0, 0);
             btnInicio.Name = "btnInicio";
-            btnInicio.Size = new Size(214, 42);
+            btnInicio.Padding = new Padding(14, 0, 0, 0);
+            btnInicio.Size = new Size(236, 58);
             btnInicio.TabIndex = 0;
-            btnInicio.Text = "Dashboard (Inicio)";
+            btnInicio.Text = "Inicio (Panel Principal)";
             btnInicio.TextAlign = ContentAlignment.MiddleLeft;
             btnInicio.UseVisualStyleBackColor = false;
             btnInicio.Click += btnInicio_Click;
             // 
             // pnlContenedor
             // 
-            pnlContenedor.BackColor = Color.FromArgb(243, 246, 250);
+            pnlContenedor.BackColor = Color.FromArgb(247, 245, 240);
             pnlContenedor.Controls.Add(pnlDashboard);
             pnlContenedor.Dock = DockStyle.Fill;
-            pnlContenedor.Location = new Point(230, 56);
+            pnlContenedor.Location = new Point(236, 58);
             pnlContenedor.Name = "pnlContenedor";
-            pnlContenedor.Size = new Size(1034, 685);
+            pnlContenedor.Size = new Size(1028, 683);
             pnlContenedor.TabIndex = 2;
             // 
             // pnlDashboard
             // 
-            pnlDashboard.BackColor = Color.FromArgb(243, 246, 250);
+            pnlDashboard.BackColor = Color.FromArgb(247, 245, 240);
             pnlDashboard.Controls.Add(btnAccesoRestaurante);
             pnlDashboard.Controls.Add(btnAccesoCheckIn);
             pnlDashboard.Controls.Add(btnAccesoReserva);
@@ -354,100 +428,144 @@ namespace Hotel.WindowsForms.Views
             pnlDashboard.Controls.Add(pnlCardLlegadas);
             pnlDashboard.Controls.Add(pnlCardOcupacion);
             pnlDashboard.Controls.Add(pnlAlertaLimpieza);
-            pnlDashboard.Controls.Add(lblTituloDashboard);
+            pnlDashboard.Controls.Add(pnlHero);
             pnlDashboard.Dock = DockStyle.Fill;
             pnlDashboard.Location = new Point(0, 0);
             pnlDashboard.Name = "pnlDashboard";
-            pnlDashboard.Size = new Size(1034, 685);
+            pnlDashboard.Size = new Size(1028, 683);
             pnlDashboard.TabIndex = 0;
+            // 
+            // pnlHero
+            // 
+            pnlHero.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            pnlHero.BackColor = Color.FromArgb(15, 30, 54);
+            pnlHero.Controls.Add(lblHeroSubtitulo);
+            pnlHero.Controls.Add(lblHeroTitulo);
+            pnlHero.Controls.Add(pnlLineaHero);
+            pnlHero.Location = new Point(24, 18);
+            pnlHero.Name = "pnlHero";
+            pnlHero.Size = new Size(976, 122);
+            pnlHero.TabIndex = 0;
+            // 
+            // lblHeroSubtitulo
+            // 
+            lblHeroSubtitulo.AutoSize = true;
+            lblHeroSubtitulo.Font = new Font("Segoe UI", 10.5F);
+            lblHeroSubtitulo.ForeColor = Color.FromArgb(203, 213, 225);
+            lblHeroSubtitulo.Location = new Point(26, 74);
+            lblHeroSubtitulo.Name = "lblHeroSubtitulo";
+            lblHeroSubtitulo.Size = new Size(445, 19);
+            lblHeroSubtitulo.TabIndex = 2;
+            lblHeroSubtitulo.Text = "Gestion hotelera sincronizada en tiempo real con SignalR y SQL Server";
+            // 
+            // lblHeroTitulo
+            // 
+            lblHeroTitulo.AutoSize = true;
+            lblHeroTitulo.Font = new Font("Georgia", 20F, FontStyle.Bold);
+            lblHeroTitulo.ForeColor = Color.White;
+            lblHeroTitulo.Location = new Point(24, 24);
+            lblHeroTitulo.Name = "lblHeroTitulo";
+            lblHeroTitulo.Size = new Size(340, 31);
+            lblHeroTitulo.TabIndex = 1;
+            lblHeroTitulo.Text = "Hotel Costa Dorada";
+            // 
+            // pnlLineaHero
+            // 
+            pnlLineaHero.BackColor = Color.FromArgb(200, 157, 84);
+            pnlLineaHero.Dock = DockStyle.Bottom;
+            pnlLineaHero.Location = new Point(0, 116);
+            pnlLineaHero.Name = "pnlLineaHero";
+            pnlLineaHero.Size = new Size(976, 6);
+            pnlLineaHero.TabIndex = 0;
             // 
             // btnAccesoRestaurante
             // 
-            btnAccesoRestaurante.BackColor = Color.FromArgb(217, 119, 6);
+            btnAccesoRestaurante.BackColor = Color.FromArgb(200, 157, 84);
             btnAccesoRestaurante.FlatAppearance.BorderSize = 0;
             btnAccesoRestaurante.FlatStyle = FlatStyle.Flat;
             btnAccesoRestaurante.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnAccesoRestaurante.ForeColor = Color.White;
-            btnAccesoRestaurante.Location = new Point(628, 282);
+            btnAccesoRestaurante.ForeColor = Color.FromArgb(15, 30, 54);
+            btnAccesoRestaurante.Location = new Point(664, 368);
             btnAccesoRestaurante.Name = "btnAccesoRestaurante";
-            btnAccesoRestaurante.Size = new Size(205, 44);
+            btnAccesoRestaurante.Size = new Size(216, 48);
             btnAccesoRestaurante.TabIndex = 9;
-            btnAccesoRestaurante.Text = "Restaurante / Pedidos";
+            btnAccesoRestaurante.Text = "Restaurante / Room Service";
             btnAccesoRestaurante.UseVisualStyleBackColor = false;
-            btnAccesoRestaurante.Click += btnRestaurante_Click;
+            btnAccesoRestaurante.Click += btnAccesoRestaurante_Click;
             // 
             // btnAccesoCheckIn
             // 
-            btnAccesoCheckIn.BackColor = Color.FromArgb(37, 99, 235);
+            btnAccesoCheckIn.BackColor = Color.FromArgb(30, 64, 175);
             btnAccesoCheckIn.FlatAppearance.BorderSize = 0;
             btnAccesoCheckIn.FlatStyle = FlatStyle.Flat;
             btnAccesoCheckIn.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnAccesoCheckIn.ForeColor = Color.White;
-            btnAccesoCheckIn.Location = new Point(428, 282);
+            btnAccesoCheckIn.Location = new Point(450, 368);
             btnAccesoCheckIn.Name = "btnAccesoCheckIn";
-            btnAccesoCheckIn.Size = new Size(186, 44);
+            btnAccesoCheckIn.Size = new Size(200, 48);
             btnAccesoCheckIn.TabIndex = 8;
             btnAccesoCheckIn.Text = "Check-in / Check-out";
             btnAccesoCheckIn.UseVisualStyleBackColor = false;
-            btnAccesoCheckIn.Click += btnCheckInOut_Click;
+            btnAccesoCheckIn.Click += btnAccesoCheckIn_Click;
             // 
             // btnAccesoReserva
             // 
-            btnAccesoReserva.BackColor = Color.FromArgb(22, 163, 74);
+            btnAccesoReserva.BackColor = Color.FromArgb(21, 128, 61);
             btnAccesoReserva.FlatAppearance.BorderSize = 0;
             btnAccesoReserva.FlatStyle = FlatStyle.Flat;
             btnAccesoReserva.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnAccesoReserva.ForeColor = Color.White;
-            btnAccesoReserva.Location = new Point(228, 282);
+            btnAccesoReserva.Location = new Point(238, 368);
             btnAccesoReserva.Name = "btnAccesoReserva";
-            btnAccesoReserva.Size = new Size(186, 44);
+            btnAccesoReserva.Size = new Size(198, 48);
             btnAccesoReserva.TabIndex = 7;
             btnAccesoReserva.Text = "+ Nueva Reservacion";
             btnAccesoReserva.UseVisualStyleBackColor = false;
-            btnAccesoReserva.Click += btnNuevaReserva_Click;
+            btnAccesoReserva.Click += btnAccesoReserva_Click;
             // 
             // btnAccesoMapa
             // 
-            btnAccesoMapa.BackColor = Color.FromArgb(18, 32, 54);
+            btnAccesoMapa.BackColor = Color.FromArgb(15, 30, 54);
             btnAccesoMapa.FlatAppearance.BorderSize = 0;
             btnAccesoMapa.FlatStyle = FlatStyle.Flat;
             btnAccesoMapa.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnAccesoMapa.ForeColor = Color.White;
-            btnAccesoMapa.Location = new Point(24, 282);
+            btnAccesoMapa.Location = new Point(24, 368);
             btnAccesoMapa.Name = "btnAccesoMapa";
-            btnAccesoMapa.Size = new Size(190, 44);
+            btnAccesoMapa.Size = new Size(200, 48);
             btnAccesoMapa.TabIndex = 6;
-            btnAccesoMapa.Text = "Ver Mapa Habitaciones";
+            btnAccesoMapa.Text = "Mapa de Habitaciones";
             btnAccesoMapa.UseVisualStyleBackColor = false;
-            btnAccesoMapa.Click += btnHabitaciones_Click;
+            btnAccesoMapa.Click += btnAccesoMapa_Click;
             // 
             // pnlCardIngresos
             // 
             pnlCardIngresos.BackColor = Color.White;
+            pnlCardIngresos.BorderStyle = BorderStyle.FixedSingle;
             pnlCardIngresos.Controls.Add(pnlBordeIngresos);
             pnlCardIngresos.Controls.Add(lblKpiIngresos);
             pnlCardIngresos.Controls.Add(lblTitIngresos);
-            pnlCardIngresos.Location = new Point(756, 128);
+            pnlCardIngresos.Location = new Point(768, 212);
             pnlCardIngresos.Name = "pnlCardIngresos";
-            pnlCardIngresos.Size = new Size(230, 125);
+            pnlCardIngresos.Size = new Size(232, 130);
             pnlCardIngresos.TabIndex = 5;
             // 
             // pnlBordeIngresos
             // 
-            pnlBordeIngresos.BackColor = Color.FromArgb(124, 58, 237);
-            pnlBordeIngresos.Dock = DockStyle.Left;
+            pnlBordeIngresos.BackColor = Color.FromArgb(200, 157, 84);
+            pnlBordeIngresos.Dock = DockStyle.Top;
             pnlBordeIngresos.Location = new Point(0, 0);
             pnlBordeIngresos.Name = "pnlBordeIngresos";
-            pnlBordeIngresos.Size = new Size(7, 125);
+            pnlBordeIngresos.Size = new Size(230, 6);
             pnlBordeIngresos.TabIndex = 0;
             // 
             // lblKpiIngresos
             // 
             lblKpiIngresos.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            lblKpiIngresos.ForeColor = Color.FromArgb(30, 41, 59);
-            lblKpiIngresos.Location = new Point(16, 48);
+            lblKpiIngresos.ForeColor = Color.FromArgb(15, 30, 54);
+            lblKpiIngresos.Location = new Point(16, 52);
             lblKpiIngresos.Name = "lblKpiIngresos";
-            lblKpiIngresos.Size = new Size(205, 58);
+            lblKpiIngresos.Size = new Size(202, 58);
             lblKpiIngresos.TabIndex = 2;
             lblKpiIngresos.Text = "$0.00";
             // 
@@ -456,7 +574,7 @@ namespace Hotel.WindowsForms.Views
             lblTitIngresos.AutoSize = true;
             lblTitIngresos.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblTitIngresos.ForeColor = Color.FromArgb(100, 116, 139);
-            lblTitIngresos.Location = new Point(18, 16);
+            lblTitIngresos.Location = new Point(16, 20);
             lblTitIngresos.Name = "lblTitIngresos";
             lblTitIngresos.Size = new Size(124, 15);
             lblTitIngresos.TabIndex = 1;
@@ -465,30 +583,31 @@ namespace Hotel.WindowsForms.Views
             // pnlCardSalidas
             // 
             pnlCardSalidas.BackColor = Color.White;
+            pnlCardSalidas.BorderStyle = BorderStyle.FixedSingle;
             pnlCardSalidas.Controls.Add(pnlBordeSalidas);
             pnlCardSalidas.Controls.Add(lblKpiSalidas);
             pnlCardSalidas.Controls.Add(lblTitSalidas);
-            pnlCardSalidas.Location = new Point(512, 128);
+            pnlCardSalidas.Location = new Point(520, 212);
             pnlCardSalidas.Name = "pnlCardSalidas";
-            pnlCardSalidas.Size = new Size(230, 125);
+            pnlCardSalidas.Size = new Size(232, 130);
             pnlCardSalidas.TabIndex = 4;
             // 
             // pnlBordeSalidas
             // 
-            pnlBordeSalidas.BackColor = Color.FromArgb(234, 88, 12);
-            pnlBordeSalidas.Dock = DockStyle.Left;
+            pnlBordeSalidas.BackColor = Color.FromArgb(217, 119, 6);
+            pnlBordeSalidas.Dock = DockStyle.Top;
             pnlBordeSalidas.Location = new Point(0, 0);
             pnlBordeSalidas.Name = "pnlBordeSalidas";
-            pnlBordeSalidas.Size = new Size(7, 125);
+            pnlBordeSalidas.Size = new Size(230, 6);
             pnlBordeSalidas.TabIndex = 0;
             // 
             // lblKpiSalidas
             // 
             lblKpiSalidas.Font = new Font("Segoe UI", 22F, FontStyle.Bold);
-            lblKpiSalidas.ForeColor = Color.FromArgb(30, 41, 59);
-            lblKpiSalidas.Location = new Point(16, 48);
+            lblKpiSalidas.ForeColor = Color.FromArgb(15, 30, 54);
+            lblKpiSalidas.Location = new Point(16, 52);
             lblKpiSalidas.Name = "lblKpiSalidas";
-            lblKpiSalidas.Size = new Size(205, 58);
+            lblKpiSalidas.Size = new Size(202, 58);
             lblKpiSalidas.TabIndex = 2;
             lblKpiSalidas.Text = "0";
             // 
@@ -497,7 +616,7 @@ namespace Hotel.WindowsForms.Views
             lblTitSalidas.AutoSize = true;
             lblTitSalidas.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblTitSalidas.ForeColor = Color.FromArgb(100, 116, 139);
-            lblTitSalidas.Location = new Point(18, 16);
+            lblTitSalidas.Location = new Point(16, 20);
             lblTitSalidas.Name = "lblTitSalidas";
             lblTitSalidas.Size = new Size(167, 15);
             lblTitSalidas.TabIndex = 1;
@@ -506,30 +625,31 @@ namespace Hotel.WindowsForms.Views
             // pnlCardLlegadas
             // 
             pnlCardLlegadas.BackColor = Color.White;
+            pnlCardLlegadas.BorderStyle = BorderStyle.FixedSingle;
             pnlCardLlegadas.Controls.Add(pnlBordeLlegadas);
             pnlCardLlegadas.Controls.Add(lblKpiLlegadas);
             pnlCardLlegadas.Controls.Add(lblTitLlegadas);
-            pnlCardLlegadas.Location = new Point(268, 128);
+            pnlCardLlegadas.Location = new Point(272, 212);
             pnlCardLlegadas.Name = "pnlCardLlegadas";
-            pnlCardLlegadas.Size = new Size(230, 125);
+            pnlCardLlegadas.Size = new Size(232, 130);
             pnlCardLlegadas.TabIndex = 3;
             // 
             // pnlBordeLlegadas
             // 
-            pnlBordeLlegadas.BackColor = Color.FromArgb(22, 163, 74);
-            pnlBordeLlegadas.Dock = DockStyle.Left;
+            pnlBordeLlegadas.BackColor = Color.FromArgb(21, 128, 61);
+            pnlBordeLlegadas.Dock = DockStyle.Top;
             pnlBordeLlegadas.Location = new Point(0, 0);
             pnlBordeLlegadas.Name = "pnlBordeLlegadas";
-            pnlBordeLlegadas.Size = new Size(7, 125);
+            pnlBordeLlegadas.Size = new Size(230, 6);
             pnlBordeLlegadas.TabIndex = 0;
             // 
             // lblKpiLlegadas
             // 
             lblKpiLlegadas.Font = new Font("Segoe UI", 22F, FontStyle.Bold);
-            lblKpiLlegadas.ForeColor = Color.FromArgb(30, 41, 59);
-            lblKpiLlegadas.Location = new Point(16, 48);
+            lblKpiLlegadas.ForeColor = Color.FromArgb(15, 30, 54);
+            lblKpiLlegadas.Location = new Point(16, 52);
             lblKpiLlegadas.Name = "lblKpiLlegadas";
-            lblKpiLlegadas.Size = new Size(205, 58);
+            lblKpiLlegadas.Size = new Size(202, 58);
             lblKpiLlegadas.TabIndex = 2;
             lblKpiLlegadas.Text = "0";
             // 
@@ -538,7 +658,7 @@ namespace Hotel.WindowsForms.Views
             lblTitLlegadas.AutoSize = true;
             lblTitLlegadas.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblTitLlegadas.ForeColor = Color.FromArgb(100, 116, 139);
-            lblTitLlegadas.Location = new Point(18, 16);
+            lblTitLlegadas.Location = new Point(16, 20);
             lblTitLlegadas.Name = "lblTitLlegadas";
             lblTitLlegadas.Size = new Size(165, 15);
             lblTitLlegadas.TabIndex = 1;
@@ -547,30 +667,31 @@ namespace Hotel.WindowsForms.Views
             // pnlCardOcupacion
             // 
             pnlCardOcupacion.BackColor = Color.White;
+            pnlCardOcupacion.BorderStyle = BorderStyle.FixedSingle;
             pnlCardOcupacion.Controls.Add(pnlBordeOcupacion);
             pnlCardOcupacion.Controls.Add(lblKpiOcupacion);
             pnlCardOcupacion.Controls.Add(lblTitOcupacion);
-            pnlCardOcupacion.Location = new Point(24, 128);
+            pnlCardOcupacion.Location = new Point(24, 212);
             pnlCardOcupacion.Name = "pnlCardOcupacion";
-            pnlCardOcupacion.Size = new Size(230, 125);
+            pnlCardOcupacion.Size = new Size(232, 130);
             pnlCardOcupacion.TabIndex = 2;
             // 
             // pnlBordeOcupacion
             // 
-            pnlBordeOcupacion.BackColor = Color.FromArgb(37, 99, 235);
-            pnlBordeOcupacion.Dock = DockStyle.Left;
+            pnlBordeOcupacion.BackColor = Color.FromArgb(30, 64, 175);
+            pnlBordeOcupacion.Dock = DockStyle.Top;
             pnlBordeOcupacion.Location = new Point(0, 0);
             pnlBordeOcupacion.Name = "pnlBordeOcupacion";
-            pnlBordeOcupacion.Size = new Size(7, 125);
+            pnlBordeOcupacion.Size = new Size(230, 6);
             pnlBordeOcupacion.TabIndex = 0;
             // 
             // lblKpiOcupacion
             // 
             lblKpiOcupacion.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            lblKpiOcupacion.ForeColor = Color.FromArgb(30, 41, 59);
-            lblKpiOcupacion.Location = new Point(16, 48);
+            lblKpiOcupacion.ForeColor = Color.FromArgb(15, 30, 54);
+            lblKpiOcupacion.Location = new Point(16, 52);
             lblKpiOcupacion.Name = "lblKpiOcupacion";
-            lblKpiOcupacion.Size = new Size(205, 58);
+            lblKpiOcupacion.Size = new Size(202, 58);
             lblKpiOcupacion.TabIndex = 2;
             lblKpiOcupacion.Text = "0%";
             // 
@@ -579,7 +700,7 @@ namespace Hotel.WindowsForms.Views
             lblTitOcupacion.AutoSize = true;
             lblTitOcupacion.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblTitOcupacion.ForeColor = Color.FromArgb(100, 116, 139);
-            lblTitOcupacion.Location = new Point(18, 16);
+            lblTitOcupacion.Location = new Point(16, 20);
             lblTitOcupacion.Name = "lblTitOcupacion";
             lblTitOcupacion.Size = new Size(131, 15);
             lblTitOcupacion.TabIndex = 1;
@@ -589,35 +710,25 @@ namespace Hotel.WindowsForms.Views
             // 
             pnlAlertaLimpieza.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pnlAlertaLimpieza.BackColor = Color.FromArgb(254, 249, 195);
+            pnlAlertaLimpieza.BorderStyle = BorderStyle.FixedSingle;
             pnlAlertaLimpieza.Controls.Add(lblAlertaLimpieza);
-            pnlAlertaLimpieza.Location = new Point(24, 68);
+            pnlAlertaLimpieza.Location = new Point(24, 154);
             pnlAlertaLimpieza.Name = "pnlAlertaLimpieza";
-            pnlAlertaLimpieza.Size = new Size(962, 42);
+            pnlAlertaLimpieza.Size = new Size(976, 42);
             pnlAlertaLimpieza.TabIndex = 1;
             // 
             // lblAlertaLimpieza
             // 
             lblAlertaLimpieza.Dock = DockStyle.Fill;
-            lblAlertaLimpieza.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblAlertaLimpieza.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             lblAlertaLimpieza.ForeColor = Color.FromArgb(133, 77, 14);
             lblAlertaLimpieza.Location = new Point(0, 0);
             lblAlertaLimpieza.Name = "lblAlertaLimpieza";
             lblAlertaLimpieza.Padding = new Padding(12, 0, 12, 0);
-            lblAlertaLimpieza.Size = new Size(962, 42);
+            lblAlertaLimpieza.Size = new Size(974, 40);
             lblAlertaLimpieza.TabIndex = 0;
-            lblAlertaLimpieza.Text = "Verificando estado del hotel...";
+            lblAlertaLimpieza.Text = "Verificando estado operativo del hotel...";
             lblAlertaLimpieza.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // lblTituloDashboard
-            // 
-            lblTituloDashboard.AutoSize = true;
-            lblTituloDashboard.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            lblTituloDashboard.ForeColor = Color.FromArgb(30, 41, 59);
-            lblTituloDashboard.Location = new Point(24, 22);
-            lblTituloDashboard.Name = "lblTituloDashboard";
-            lblTituloDashboard.Size = new Size(276, 30);
-            lblTituloDashboard.TabIndex = 0;
-            lblTituloDashboard.Text = "Panel de Control (Dashboard)";
             // 
             // FrmPrincipal
             // 
@@ -630,7 +741,7 @@ namespace Hotel.WindowsForms.Views
             MinimumSize = new Size(1050, 650);
             Name = "FrmPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Hotel Management System - Recepcion en Tiempo Real";
+            Text = "Hotel Costa Dorada - Sistema de Gestion Hotelera";
             FormClosing += FrmPrincipal_FormClosing;
             Load += FrmPrincipal_Load;
             pnlSuperior.ResumeLayout(false);
@@ -638,7 +749,8 @@ namespace Hotel.WindowsForms.Views
             pnlMenuLateral.ResumeLayout(false);
             pnlContenedor.ResumeLayout(false);
             pnlDashboard.ResumeLayout(false);
-            pnlDashboard.PerformLayout();
+            pnlHero.ResumeLayout(false);
+            pnlHero.PerformLayout();
             pnlCardIngresos.ResumeLayout(false);
             pnlCardIngresos.PerformLayout();
             pnlCardSalidas.ResumeLayout(false);
@@ -654,13 +766,13 @@ namespace Hotel.WindowsForms.Views
         #endregion
 
         private Panel pnlSuperior;
+        private Button btnCerrarSesion;
+        private Label lblUsuarioRol;
         private Label lblEstadoRealtime;
-        private Button btnReconectar;
-        private TextBox txtApiUrl;
-        private Label lblServidor;
         private Label lblTituloApp;
         private Button btnMenuToggle;
         private Panel pnlMenuLateral;
+        private Button btnUsuarios;
         private Button btnReportes;
         private Button btnPlatillos;
         private Button btnRestaurante;
@@ -669,9 +781,15 @@ namespace Hotel.WindowsForms.Views
         private Button btnNuevaReserva;
         private Button btnTiposHabitacion;
         private Button btnHabitaciones;
+        private Button btnMisReservas;
+        private Button btnExplorarSuites;
         private Button btnInicio;
         private Panel pnlContenedor;
         private Panel pnlDashboard;
+        private Panel pnlHero;
+        private Label lblHeroSubtitulo;
+        private Label lblHeroTitulo;
+        private Panel pnlLineaHero;
         private Button btnAccesoRestaurante;
         private Button btnAccesoCheckIn;
         private Button btnAccesoReserva;
@@ -694,6 +812,5 @@ namespace Hotel.WindowsForms.Views
         private Label lblTitOcupacion;
         private Panel pnlAlertaLimpieza;
         private Label lblAlertaLimpieza;
-        private Label lblTituloDashboard;
     }
 }

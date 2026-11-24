@@ -16,6 +16,8 @@ namespace Hotel.WindowsForms.Views
             cboFiltroEstado.SelectedIndex = 0;
             cboMetodo.SelectedIndex = 0;
             cboComprobante.SelectedIndex = 0;
+            UiTheme.EstilizarGrid(dgvReservas);
+            UiTheme.EstilizarGrid(dgvPagos);
         }
 
         public FrmCheckInOut(HotelAppContext app) : this()

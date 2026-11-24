@@ -11,6 +11,7 @@ namespace Hotel.WindowsForms.Views
         public FrmTipoHabitacion()
         {
             InitializeComponent();
+            Helpers.UiTheme.EstilizarGrid(dgvTipos);
         }
 
         public FrmTipoHabitacion(HotelAppContext app) : this()

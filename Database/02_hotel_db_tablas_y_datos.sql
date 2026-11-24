@@ -9,6 +9,7 @@
 -- 1. CREACIÓN DE TABLAS
 -- ============================================================================
 
+IF OBJECT_ID(N'dbo.Usuarios', N'U') IS NOT NULL DROP TABLE dbo.Usuarios;
 IF OBJECT_ID(N'dbo.DetallePedidos', N'U') IS NOT NULL DROP TABLE dbo.DetallePedidos;
 IF OBJECT_ID(N'dbo.PedidosRestaurante', N'U') IS NOT NULL DROP TABLE dbo.PedidosRestaurante;
 IF OBJECT_ID(N'dbo.Platillos', N'U') IS NOT NULL DROP TABLE dbo.Platillos;
@@ -188,6 +189,21 @@ CREATE TABLE dbo.DetallePedidos (
 );
 GO
 
+CREATE TABLE dbo.Usuarios (
+    Id              INT IDENTITY(1,1) NOT NULL CONSTRAINT PK_Usuarios PRIMARY KEY,
+    Username        NVARCHAR(50)  NOT NULL,
+    PasswordHash    NVARCHAR(256) NOT NULL,
+    NombreCompleto  NVARCHAR(120) NOT NULL,
+    Rol             NVARCHAR(30)  NOT NULL,
+    ClienteId       INT           NULL,
+    Activo          BIT           NOT NULL CONSTRAINT DF_Usuarios_Activo DEFAULT (1),
+    FechaCreacion   DATETIME2     NOT NULL CONSTRAINT DF_Usuarios_FechaCreacion DEFAULT (SYSUTCDATETIME()),
+    CONSTRAINT UQ_Usuarios_Username UNIQUE (Username),
+    CONSTRAINT FK_Usuarios_Clientes FOREIGN KEY (ClienteId) REFERENCES dbo.Clientes(Id),
+    CONSTRAINT CK_Usuarios_Rol CHECK (Rol IN (N'Administrador', N'Recepcionista', N'Cliente'))
+);
+GO
+
 -- ============================================================================
 -- 2. DATOS INICIALES (SEED)
 -- ============================================================================
@@ -305,4 +321,11 @@ VALUES
     (1, 11, 1, 4.00, 4.00),
     (2, 4, 1, 34.00, 34.00),
     (2, 8, 1, 10.50, 10.50);
+GO
+
+INSERT INTO dbo.Usuarios (Username, PasswordHash, NombreCompleto, Rol, ClienteId, Activo)
+VALUES
+    (N'admin',     N'573A9E4FF687BC0104427E921407309A2DBE2FF5563A360056F0B8D45CBCE3C1', N'Administrador General',       N'Administrador', NULL, 1),
+    (N'recepcion', N'7AC5423D4100DE2899C28BF5EF129ACAAB94E13723830FE557F7226168988E4B', N'Laura Vargas (Recepcion)',    N'Recepcionista', NULL, 1),
+    (N'cliente',   N'A71552734870E0F3C071BE17B24513969D03A8714D235B3C41FAEF726C043DF2', N'Carlos Eduardo Solis Guevara',N'Cliente',       1,    1);
 GO

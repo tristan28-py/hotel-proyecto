@@ -12,6 +12,8 @@ namespace Hotel.WindowsForms.Views
         {
             InitializeComponent();
             cboTipoDoc.SelectedIndex = 0;
+            Helpers.UiTheme.EstilizarGrid(dgvClientes);
+            Helpers.UiTheme.EstilizarGrid(dgvHistorial);
         }
 
         public FrmClientes(HotelAppContext app) : this()

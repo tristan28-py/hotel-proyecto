@@ -34,4 +34,6 @@ public partial class Cliente
     public DateTime FechaRegistro { get; set; }
 
     public virtual ICollection<Reservacione> Reservaciones { get; set; } = new List<Reservacione>();
+
+    public virtual ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
 }

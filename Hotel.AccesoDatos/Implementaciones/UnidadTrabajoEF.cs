@@ -21,6 +21,7 @@ namespace Hotel.AccesoDatos.Implementaciones
         public IRepositorioAD<Platillo> TPlatillo { get; }
         public IRepositorioAD<PedidosRestaurante> TPedidoRestaurante { get; }
         public IRepositorioAD<DetallePedido> TDetallePedido { get; }
+        public IRepositorioAD<Usuario> TUsuario { get; }
 
         public UnidadTrabajoEF(HotelContext contexto)
         {
@@ -34,6 +35,7 @@ namespace Hotel.AccesoDatos.Implementaciones
             TPlatillo = new RepositorioAD<Platillo>(_contexto);
             TPedidoRestaurante = new RepositorioAD<PedidosRestaurante>(_contexto);
             TDetallePedido = new RepositorioAD<DetallePedido>(_contexto);
+            TUsuario = new RepositorioAD<Usuario>(_contexto);
         }
 
         public int Completar() => _contexto.SaveChanges();

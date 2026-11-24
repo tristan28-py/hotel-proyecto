@@ -165,4 +165,52 @@ namespace Hotel.Dominio.EntidadesTipadas
         public decimal TotalFacturadoAcumulado { get; set; }
         public List<ETReservacion> Reservaciones { get; set; } = new();
     }
+
+    public class ETUsuario
+    {
+        public int Id { get; set; }
+        public string Username { get; set; } = string.Empty;
+        public string NombreCompleto { get; set; } = string.Empty;
+        public string Rol { get; set; } = "Cliente";
+        public int? ClienteId { get; set; }
+        public bool Activo { get; set; }
+        public DateTime FechaCreacion { get; set; }
+    }
+
+    public class LoginRequestDTO
+    {
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+    }
+
+    public class LoginResponseDTO
+    {
+        public int UsuarioId { get; set; }
+        public string Username { get; set; } = string.Empty;
+        public string NombreCompleto { get; set; } = string.Empty;
+        public string Rol { get; set; } = string.Empty;
+        public int? ClienteId { get; set; }
+    }
+
+    public class RegistroHuespedRequestDTO
+    {
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string TipoDocumento { get; set; } = "Cedula";
+        public string NumeroDocumento { get; set; } = string.Empty;
+        public string Nombres { get; set; } = string.Empty;
+        public string Apellidos { get; set; } = string.Empty;
+        public string Nacionalidad { get; set; } = "Costarricense";
+        public string Email { get; set; } = string.Empty;
+        public string Telefono { get; set; } = string.Empty;
+    }
+
+    public class CrearUsuarioRequestDTO
+    {
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string NombreCompleto { get; set; } = string.Empty;
+        public string Rol { get; set; } = "Recepcionista";
+        public int? ClienteId { get; set; }
+    }
 }

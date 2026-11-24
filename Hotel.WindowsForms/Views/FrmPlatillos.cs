@@ -11,6 +11,7 @@ namespace Hotel.WindowsForms.Views
         public FrmPlatillos()
         {
             InitializeComponent();
+            Helpers.UiTheme.EstilizarGrid(dgvPlatillos);
         }
 
         public FrmPlatillos(HotelAppContext app) : this()

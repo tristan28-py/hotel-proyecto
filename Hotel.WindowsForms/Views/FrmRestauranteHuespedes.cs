@@ -14,6 +14,8 @@ namespace Hotel.WindowsForms.Views
         public FrmRestauranteHuespedes()
         {
             InitializeComponent();
+            UiTheme.EstilizarGrid(dgvCarrito);
+            UiTheme.EstilizarGrid(dgvComandas);
         }
 
         public FrmRestauranteHuespedes(HotelAppContext app) : this()
@@ -21,6 +23,15 @@ namespace Hotel.WindowsForms.Views
             _app = app;
             _restCtrl = new RestauranteMvcController(app.Api);
             _resCtrl = new ReservacionesMvcController(app.Api);
+
+            if (app.SesionActual?.Rol == "Cliente")
+            {
+                btnCocina.Visible = false;
+                btnCamino.Visible = false;
+                btnEntregado.Visible = false;
+                lblComandas.Text = "Mis Pedidos Realizados";
+            }
+
             _app.Realtime.RestauranteActualizado += OnTiempoReal;
             _app.Realtime.ReservacionesActualizadas += OnTiempoReal;
         }
@@ -90,7 +101,8 @@ namespace Hotel.WindowsForms.Views
             cboCategoria.DisplayMember = "Nombre";
             cboCategoria.ValueMember = "Id";
 
-            var enCursoRes = await _resCtrl.BuscarAsync(estado: "EnCurso");
+            int? clienteId = _app?.SesionActual?.Rol == "Cliente" ? _app.SesionActual.ClienteId : null;
+            var enCursoRes = await _resCtrl.BuscarAsync(estado: "EnCurso", clienteId: clienteId);
             if (enCursoRes.Success && enCursoRes.Data != null)
             {
                 var items = enCursoRes.Data.Select(r => new
@@ -120,44 +132,56 @@ namespace Hotel.WindowsForms.Views
             {
                 var card = new Panel
                 {
-                    Width = 240,
-                    Height = 135,
+                    Width = 256,
+                    Height = 152,
                     BackColor = Color.White,
                     Margin = new Padding(6),
-                    Padding = new Padding(10),
                     BorderStyle = BorderStyle.FixedSingle
                 };
 
+                var barra = new Panel { Dock = DockStyle.Top, Height = 5, BackColor = UiTheme.DoradoHotel };
                 var lblNombre = new Label
                 {
-                    Text = $"{p.Nombre}\n[{p.CategoriaNombre}]",
-                    Font = new Font("Segoe UI", 9.5f, FontStyle.Bold),
-                    Dock = DockStyle.Top,
-                    Height = 38
+                    Text = $"{p.Nombre}",
+                    Font = new Font("Georgia", 10f, FontStyle.Bold),
+                    ForeColor = UiTheme.SidebarFondo,
+                    Location = new Point(10, 12),
+                    Size = new Size(234, 24)
                 };
-                var lblPrecio = new Label
+                var lblCat = new Label
                 {
-                    Text = $"{p.Precio:C2} | {p.TiempoPreparacionMinutos} min",
-                    ForeColor = UiTheme.Primario,
-                    Font = new Font("Segoe UI", 9.5f, FontStyle.Bold),
-                    Dock = DockStyle.Top,
-                    Height = 22
+                    Text = $"{p.CategoriaNombre}  |  {p.TiempoPreparacionMinutos} min",
+                    ForeColor = UiTheme.TextoSuave,
+                    Font = new Font("Segoe UI", 8f, FontStyle.Bold),
+                    Location = new Point(10, 36),
+                    Size = new Size(234, 16)
                 };
                 var lblDesc = new Label
                 {
                     Text = p.Descripcion ?? string.Empty,
                     ForeColor = UiTheme.TextoSuave,
                     Font = new Font("Segoe UI", 8f),
-                    Dock = DockStyle.Fill
+                    Location = new Point(10, 56),
+                    Size = new Size(234, 34)
                 };
-                var btnAgregar = new Button { Text = "+ Agregar al Pedido", Dock = DockStyle.Bottom, Height = 28 };
-                UiTheme.EstilizarBoton(btnAgregar, UiTheme.Primario);
+                var lblPrecio = new Label
+                {
+                    Text = $"{p.Precio:C2}",
+                    ForeColor = UiTheme.SidebarFondo,
+                    Font = new Font("Segoe UI", 11f, FontStyle.Bold),
+                    Location = new Point(10, 96),
+                    Size = new Size(90, 24)
+                };
+                var btnAgregar = new Button
+                {
+                    Text = "+ Agregar",
+                    Location = new Point(110, 94),
+                    Size = new Size(134, 32)
+                };
+                UiTheme.EstilizarBoton(btnAgregar, UiTheme.SidebarFondo);
                 btnAgregar.Click += (_, _) => AgregarAlCarrito(p);
 
-                card.Controls.Add(lblDesc);
-                card.Controls.Add(lblPrecio);
-                card.Controls.Add(lblNombre);
-                card.Controls.Add(btnAgregar);
+                card.Controls.AddRange([btnAgregar, lblPrecio, lblDesc, lblCat, lblNombre, barra]);
                 flpMenu.Controls.Add(card);
             }
             flpMenu.ResumeLayout();
@@ -227,7 +251,13 @@ namespace Hotel.WindowsForms.Views
         private async Task CargarComandasAsync()
         {
             if (_restCtrl == null) return;
-            var res = await _restCtrl.ListarPedidosAsync();
+            int? resId = _app?.SesionActual?.Rol == "Cliente" && cboEstadiaActiva.SelectedValue is int id ? id : null;
+            if (_app?.SesionActual?.Rol == "Cliente" && resId == null)
+            {
+                dgvComandas.DataSource = new List<PedidoRestauranteModel>();
+                return;
+            }
+            var res = await _restCtrl.ListarPedidosAsync(reservacionId: resId);
             if (res.Success) dgvComandas.DataSource = res.Data;
         }
 

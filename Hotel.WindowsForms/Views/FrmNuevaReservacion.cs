@@ -21,6 +21,9 @@ namespace Hotel.WindowsForms.Views
             dtpMatrizDesde.Value = DateTime.Today;
             dtpMatrizHasta.Value = DateTime.Today.AddDays(10);
             cboMetodoPago.SelectedIndex = 0;
+            UiTheme.EstilizarGrid(dgvDisponibles);
+            UiTheme.EstilizarGrid(dgvMatriz);
+            dgvMatriz.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         public FrmNuevaReservacion(HotelAppContext app) : this()

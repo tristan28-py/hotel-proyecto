@@ -60,6 +60,8 @@ namespace Hotel.Dominio.DTO
                 .ForMember(d => d.HabitacionNumero, o => o.MapFrom(s => s.Reservacion != null && s.Reservacion.Habitacion != null ? s.Reservacion.Habitacion.Numero : null))
                 .ForMember(d => d.ClienteNombre, o => o.MapFrom(s => s.Reservacion != null && s.Reservacion.Cliente != null ? $"{s.Reservacion.Cliente.Nombres} {s.Reservacion.Cliente.Apellidos}" : null))
                 .ForMember(d => d.Detalles, o => o.MapFrom(s => s.DetallePedidos));
+
+            CreateMap<Usuario, ETUsuario>();
         }
     }
 }
