@@ -160,6 +160,7 @@ namespace Hotel.WindowsForms.Views
             // pnlFormulario
             // 
             pnlFormulario.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            pnlFormulario.AutoScroll = true;
             pnlFormulario.BackColor = Color.White;
             pnlFormulario.BorderStyle = BorderStyle.FixedSingle;
             pnlFormulario.Controls.Add(btnGuardar);

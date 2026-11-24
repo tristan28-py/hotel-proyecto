@@ -13,7 +13,12 @@ namespace Hotel.WindowsForms.Views
         {
             InitializeComponent();
             cboRol.SelectedIndex = 0;
-            UiTheme.EstilizarGrid(dgvUsuarios);
+            UiTheme.ConfigurarColumnas(dgvUsuarios,
+                ("Username", "Usuario", 22, 100, null),
+                ("NombreCompleto", "Nombre Completo", 36, 160, null),
+                ("Rol", "Rol", 20, 100, null),
+                ("Activo", "Activo", 10, 60, null),
+                ("FechaCreacion", "Creado", 12, 95, "dd/MM/yyyy"));
         }
 
         public FrmUsuarios(HotelAppContext app) : this()

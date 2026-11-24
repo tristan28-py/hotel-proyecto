@@ -17,9 +17,22 @@ namespace Hotel.WindowsForms.Views
             dtpInicio.Value = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
             dtpFin.Value = DateTime.Today;
             numAnio.Value = DateTime.Today.Year;
-            UiTheme.EstilizarGrid(dgvMensual);
-            UiTheme.EstilizarGrid(dgvIngresos);
-            UiTheme.EstilizarGrid(dgvPlatillosTop);
+            UiTheme.ConfigurarColumnas(dgvMensual,
+                ("Anio", "Ano", 16, 70, null),
+                ("MesNombre", "Mes", 34, 140, null),
+                ("CantidadReservaciones", "Reservaciones", 22, 100, null),
+                ("TotalFacturado", "Total Facturado", 28, 120, "C2"));
+            UiTheme.ConfigurarColumnas(dgvIngresos,
+                ("FechaPago", "Fecha Pago", 24, 120, "dd/MM/yyyy HH:mm"),
+                ("CodigoReservacion", "Reserva", 20, 105, null),
+                ("MetodoPago", "Metodo", 22, 110, null),
+                ("NumeroComprobante", "Comprobante", 18, 95, null),
+                ("Monto", "Monto", 16, 85, "C2"));
+            UiTheme.ConfigurarColumnas(dgvPlatillosTop,
+                ("Nombre", "Platillo", 36, 160, null),
+                ("Categoria", "Categoria", 24, 115, null),
+                ("CantidadTotalSolicitada", "Cantidad", 18, 80, null),
+                ("MontoTotalGenerado", "Monto Generado", 22, 115, "C2"));
         }
 
         public FrmReportesOcupacion(HotelAppContext app) : this()

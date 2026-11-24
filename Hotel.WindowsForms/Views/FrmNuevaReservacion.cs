@@ -16,12 +16,22 @@ namespace Hotel.WindowsForms.Views
         public FrmNuevaReservacion()
         {
             InitializeComponent();
-            calEntrada.SelectionStart = DateTime.Today;
-            calSalida.SelectionStart = DateTime.Today.AddDays(2);
+            dtpEntrada.Value = DateTime.Today;
+            dtpSalida.Value = DateTime.Today.AddDays(2);
             dtpMatrizDesde.Value = DateTime.Today;
             dtpMatrizHasta.Value = DateTime.Today.AddDays(10);
             cboMetodoPago.SelectedIndex = 0;
-            UiTheme.EstilizarGrid(dgvDisponibles);
+            ActualizarEtiquetaNoches();
+
+            UiTheme.ConfigurarColumnas(dgvDisponibles,
+                ("Numero", "Hab.", 12, 60, null),
+                ("Piso", "Piso", 10, 50, null),
+                ("TipoHabitacionNombre", "Tipo", 28, 130, null),
+                ("CapacidadAdultos", "Adultos", 12, 60, null),
+                ("CapacidadNinos", "Ninos", 12, 55, null),
+                ("PrecioBasePorNoche", "Tarifa/Noche", 16, 95, "C2"),
+                ("EstadoOperativo", "Estado", 16, 95, null));
+
             UiTheme.EstilizarGrid(dgvMatriz);
             dgvMatriz.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
@@ -56,6 +66,17 @@ namespace Hotel.WindowsForms.Views
                     await CargarMatrizAsync();
                 });
             }
+        }
+
+        private void dtpFechas_ValueChanged(object? sender, EventArgs e)
+        {
+            ActualizarEtiquetaNoches();
+        }
+
+        private void ActualizarEtiquetaNoches()
+        {
+            int noches = (dtpSalida.Value.Date - dtpEntrada.Value.Date).Days;
+            lblNoches.Text = noches > 0 ? $"{noches} noche(s)" : "Rango invalido";
         }
 
         private async void btnBuscarDisp_Click(object? sender, EventArgs e)
@@ -123,8 +144,8 @@ namespace Hotel.WindowsForms.Views
         private async Task BuscarDisponiblesAsync()
         {
             if (_habCtrl == null) return;
-            var entrada = DateOnly.FromDateTime(calEntrada.SelectionStart);
-            var salida = DateOnly.FromDateTime(calSalida.SelectionStart);
+            var entrada = DateOnly.FromDateTime(dtpEntrada.Value);
+            var salida = DateOnly.FromDateTime(dtpSalida.Value);
             int? tipoId = cboTipo.SelectedValue is int id && id > 0 ? id : null;
 
             var res = await _habCtrl.BuscarDisponiblesAsync(entrada, salida, (int)numHuespedes.Value, tipoId);
@@ -144,8 +165,8 @@ namespace Hotel.WindowsForms.Views
             {
                 HabitacionId = _habSeleccionada.Id,
                 ClienteId = cboClientes.SelectedValue as int?,
-                FechaInicio = DateOnly.FromDateTime(calEntrada.SelectionStart),
-                FechaFin = DateOnly.FromDateTime(calSalida.SelectionStart),
+                FechaInicio = DateOnly.FromDateTime(dtpEntrada.Value),
+                FechaFin = DateOnly.FromDateTime(dtpSalida.Value),
                 CantidadHuespedes = (int)numHuespedes.Value
             };
 
@@ -159,11 +180,13 @@ namespace Hotel.WindowsForms.Views
             var c = res.Data;
             lblCotizacion.Text =
                 $"Habitacion: {c.HabitacionNumero} ({c.TipoHabitacion})\r\n" +
-                $"Noches: {c.Noches} x {c.TarifaBasePorNoche:C2} = {c.SubtotalHospedaje:C2}\r\n" +
+                $"Estadia: {c.Noches} noches x {c.TarifaBasePorNoche:C2} = {c.SubtotalHospedaje:C2}\r\n" +
                 $"Temporada: {c.DetalleTemporada} (+{c.RecargoTemporada:C2})\r\n" +
-                $"Personas extra: +{c.RecargoPersonasExtra:C2} | Desc.: -{c.DescuentoCliente:C2}\r\n" +
+                $"Personas extra: +{c.RecargoPersonasExtra:C2}\r\n" +
+                $"Desc. cliente frecuente: -{c.DescuentoCliente:C2}\r\n" +
                 $"IVA (16%): {c.Impuestos:C2}\r\n" +
-                $"TOTAL: {c.CostoTotal:C2} | ANTICIPO (30%): {c.MontoAnticipoRequerido:C2}";
+                $"TOTAL: {c.CostoTotal:C2}\r\n" +
+                $"Anticipo minimo (30%): {c.MontoAnticipoRequerido:C2}";
 
             numAnticipo.Value = Math.Clamp(c.MontoAnticipoRequerido, 0, 100000);
         }
@@ -186,8 +209,8 @@ namespace Hotel.WindowsForms.Views
             {
                 ClienteId = clienteId,
                 HabitacionId = _habSeleccionada.Id,
-                FechaInicio = DateOnly.FromDateTime(calEntrada.SelectionStart),
-                FechaFin = DateOnly.FromDateTime(calSalida.SelectionStart),
+                FechaInicio = DateOnly.FromDateTime(dtpEntrada.Value),
+                FechaFin = DateOnly.FromDateTime(dtpSalida.Value),
                 HoraLlegadaPactada = new TimeOnly(15, 0),
                 CantidadHuespedes = (int)numHuespedes.Value,
                 Acompanantes = txtAcompanantes.Text.Trim(),
@@ -233,7 +256,15 @@ namespace Hotel.WindowsForms.Views
             if (res.Data.Count > 0)
             {
                 foreach (var d in res.Data[0].Dias)
-                    dgvMatriz.Columns.Add(d.Fecha.ToString("yyyy-MM-dd"), d.Fecha.ToString("dd/MM"));
+                {
+                    var col = new DataGridViewTextBoxColumn
+                    {
+                        Name = d.Fecha.ToString("yyyy-MM-dd"),
+                        HeaderText = d.Fecha.ToString("dd/MM"),
+                        MinimumWidth = 96
+                    };
+                    dgvMatriz.Columns.Add(col);
+                }
 
                 foreach (var fila in res.Data)
                 {
@@ -247,7 +278,7 @@ namespace Hotel.WindowsForms.Views
                         var cell = row.Cells[i + 2];
                         cell.Value = dia.CodigoReservacion ?? dia.Estado;
                         cell.Style.BackColor = UiTheme.ColorEstadoHabitacion(dia.Estado);
-                        cell.Style.ForeColor = dia.Estado == "EnLimpieza" ? Color.Black : Color.White;
+                        cell.Style.ForeColor = Color.White;
                     }
                 }
             }

@@ -16,8 +16,20 @@ namespace Hotel.WindowsForms.Views
             cboFiltroEstado.SelectedIndex = 0;
             cboMetodo.SelectedIndex = 0;
             cboComprobante.SelectedIndex = 0;
-            UiTheme.EstilizarGrid(dgvReservas);
-            UiTheme.EstilizarGrid(dgvPagos);
+            UiTheme.ConfigurarColumnas(dgvReservas,
+                ("Codigo", "Codigo", 18, 105, null),
+                ("ClienteNombreCompleto", "Huesped", 24, 130, null),
+                ("HabitacionNumero", "Hab.", 10, 55, null),
+                ("FechaInicio", "Entrada", 14, 85, "dd/MM/yyyy"),
+                ("FechaFin", "Salida", 14, 85, "dd/MM/yyyy"),
+                ("Estado", "Estado", 15, 95, null),
+                ("SaldoPendiente", "Saldo", 15, 85, "C2"));
+            UiTheme.ConfigurarColumnas(dgvPagos,
+                ("FechaPago", "Fecha", 24, 115, "dd/MM/yyyy HH:mm"),
+                ("Monto", "Monto", 18, 85, "C2"),
+                ("MetodoPago", "Metodo", 24, 110, null),
+                ("TipoComprobante", "Tipo", 14, 70, null),
+                ("NumeroComprobante", "Comprobante", 20, 100, null));
         }
 
         public FrmCheckInOut(HotelAppContext app) : this()

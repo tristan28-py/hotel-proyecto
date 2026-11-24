@@ -14,8 +14,18 @@ namespace Hotel.WindowsForms.Views
         public FrmRestauranteHuespedes()
         {
             InitializeComponent();
-            UiTheme.EstilizarGrid(dgvCarrito);
-            UiTheme.EstilizarGrid(dgvComandas);
+            UiTheme.ConfigurarColumnas(dgvCarrito,
+                ("Nombre", "Platillo", 44, 130, null),
+                ("Cantidad", "Cant.", 16, 50, null),
+                ("Precio", "Precio", 20, 70, "C2"),
+                ("Subtotal", "Subtotal", 20, 75, "C2"));
+            UiTheme.ConfigurarColumnas(dgvComandas,
+                ("Id", "#", 10, 40, null),
+                ("HabitacionNumero", "Hab.", 12, 50, null),
+                ("ClienteNombre", "Huesped", 26, 110, null),
+                ("EstadoPedido", "Estado", 20, 85, null),
+                ("Total", "Total", 16, 70, "C2"),
+                ("EsRoomService", "Room Svc", 16, 65, null));
         }
 
         public FrmRestauranteHuespedes(HotelAppContext app) : this()
@@ -132,51 +142,54 @@ namespace Hotel.WindowsForms.Views
             {
                 var card = new Panel
                 {
-                    Width = 256,
-                    Height = 152,
+                    Width = 266,
+                    Height = 162,
                     BackColor = Color.White,
-                    Margin = new Padding(6),
+                    Margin = new Padding(8),
                     BorderStyle = BorderStyle.FixedSingle
                 };
 
                 var barra = new Panel { Dock = DockStyle.Top, Height = 5, BackColor = UiTheme.DoradoHotel };
                 var lblNombre = new Label
                 {
-                    Text = $"{p.Nombre}",
+                    Text = p.Nombre,
                     Font = new Font("Georgia", 10f, FontStyle.Bold),
                     ForeColor = UiTheme.SidebarFondo,
-                    Location = new Point(10, 12),
-                    Size = new Size(234, 24)
+                    Location = new Point(12, 12),
+                    Size = new Size(240, 24),
+                    AutoEllipsis = true
                 };
                 var lblCat = new Label
                 {
                     Text = $"{p.CategoriaNombre}  |  {p.TiempoPreparacionMinutos} min",
                     ForeColor = UiTheme.TextoSuave,
                     Font = new Font("Segoe UI", 8f, FontStyle.Bold),
-                    Location = new Point(10, 36),
-                    Size = new Size(234, 16)
+                    Location = new Point(12, 38),
+                    Size = new Size(240, 18),
+                    AutoEllipsis = true
                 };
                 var lblDesc = new Label
                 {
                     Text = p.Descripcion ?? string.Empty,
                     ForeColor = UiTheme.TextoSuave,
-                    Font = new Font("Segoe UI", 8f),
-                    Location = new Point(10, 56),
-                    Size = new Size(234, 34)
+                    Font = new Font("Segoe UI", 8.5f),
+                    Location = new Point(12, 58),
+                    Size = new Size(240, 40),
+                    AutoEllipsis = true
                 };
                 var lblPrecio = new Label
                 {
                     Text = $"{p.Precio:C2}",
                     ForeColor = UiTheme.SidebarFondo,
                     Font = new Font("Segoe UI", 11f, FontStyle.Bold),
-                    Location = new Point(10, 96),
-                    Size = new Size(90, 24)
+                    Location = new Point(12, 108),
+                    Size = new Size(92, 26)
                 };
                 var btnAgregar = new Button
                 {
                     Text = "+ Agregar",
-                    Location = new Point(110, 94),
-                    Size = new Size(134, 32)
+                    Location = new Point(112, 104),
+                    Size = new Size(140, 34)
                 };
                 UiTheme.EstilizarBoton(btnAgregar, UiTheme.SidebarFondo);
                 btnAgregar.Click += (_, _) => AgregarAlCarrito(p);

@@ -91,6 +91,7 @@ namespace Hotel.WindowsForms.Views
             // pnlPedido
             // 
             pnlPedido.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pnlPedido.AutoScroll = true;
             pnlPedido.BackColor = Color.White;
             pnlPedido.BorderStyle = BorderStyle.FixedSingle;
             pnlPedido.Controls.Add(btnEnviarPedido);

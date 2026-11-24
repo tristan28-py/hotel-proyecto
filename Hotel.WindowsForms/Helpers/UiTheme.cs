@@ -44,12 +44,14 @@ namespace Hotel.WindowsForms.Helpers
             grid.ColumnHeadersDefaultCellStyle.BackColor = SidebarFondo;
             grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             grid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9f, FontStyle.Bold);
-            grid.ColumnHeadersHeight = 36;
+            grid.ColumnHeadersDefaultCellStyle.Padding = new Padding(6, 4, 6, 4);
+            grid.ColumnHeadersHeight = 38;
             grid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(250, 249, 246);
+            grid.DefaultCellStyle.Padding = new Padding(6, 3, 6, 3);
             grid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(237, 227, 207);
             grid.DefaultCellStyle.SelectionForeColor = TextoOscuro;
             grid.DefaultCellStyle.Font = new Font("Segoe UI", 9f);
-            grid.RowTemplate.Height = 32;
+            grid.RowTemplate.Height = 34;
             grid.RowHeadersVisible = false;
             grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             grid.MultiSelect = false;
@@ -57,6 +59,61 @@ namespace Hotel.WindowsForms.Helpers
             grid.AllowUserToDeleteRows = false;
             grid.ReadOnly = true;
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        public static void ConfigurarColumnas(
+            DataGridView grid,
+            params (string Propiedad, string Titulo, float Peso, int MinAncho, string? Formato)[] columnas)
+        {
+            EstilizarGrid(grid);
+            grid.AutoGenerateColumns = false;
+            grid.Columns.Clear();
+
+            foreach (var col in columnas)
+            {
+                var c = new DataGridViewTextBoxColumn
+                {
+                    DataPropertyName = col.Propiedad,
+                    Name = col.Propiedad,
+                    HeaderText = col.Titulo,
+                    FillWeight = col.Peso,
+                    MinimumWidth = col.MinAncho
+                };
+                if (!string.IsNullOrEmpty(col.Formato))
+                    c.DefaultCellStyle.Format = col.Formato;
+                grid.Columns.Add(c);
+            }
+
+            grid.CellFormatting -= Grid_EstadoCellFormatting;
+            grid.CellFormatting += Grid_EstadoCellFormatting;
+        }
+
+        private static void Grid_EstadoCellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (sender is not DataGridView grid || e.Value == null) return;
+            string colName = grid.Columns[e.ColumnIndex].DataPropertyName;
+            if (colName is not ("Estado" or "EstadoOperativo" or "EstadoPedido")) return;
+
+            string val = e.Value.ToString() ?? string.Empty;
+            (Color fondo, Color texto) = val switch
+            {
+                "Disponible" or "Confirmada" or "Entregado" or "Completada" =>
+                    (Color.FromArgb(220, 252, 231), Color.FromArgb(22, 101, 52)),
+                "Ocupada" or "Cancelada" or "Cancelado" =>
+                    (Color.FromArgb(254, 226, 226), Color.FromArgb(153, 27, 27)),
+                "EnLimpieza" or "PendientePago" or "Recibido" or "EnCocina" =>
+                    (Color.FromArgb(254, 243, 199), Color.FromArgb(146, 64, 14)),
+                "Reservada" or "EnCurso" or "EnCamino" =>
+                    (Color.FromArgb(219, 234, 254), Color.FromArgb(30, 64, 175)),
+                _ => (Color.FromArgb(241, 245, 249), Color.FromArgb(71, 85, 105))
+            };
+
+            if (e.CellStyle != null)
+            {
+                e.CellStyle.BackColor = fondo;
+                e.CellStyle.ForeColor = texto;
+                e.CellStyle.Font = new Font("Segoe UI", 8.5f, FontStyle.Bold);
+            }
         }
 
         public static void AplicarBordeRedondeado(Control ctrl, int radio = 10)

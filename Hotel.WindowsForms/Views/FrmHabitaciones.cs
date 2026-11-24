@@ -14,7 +14,13 @@ namespace Hotel.WindowsForms.Views
         {
             InitializeComponent();
             cboEstado.SelectedIndex = 0;
-            UiTheme.EstilizarGrid(dgvHabitaciones);
+            UiTheme.ConfigurarColumnas(dgvHabitaciones,
+                ("Numero", "Hab.", 12, 65, null),
+                ("Piso", "Piso", 10, 55, null),
+                ("TipoHabitacionNombre", "Tipo de Habitacion", 28, 140, null),
+                ("EstadoOperativo", "Estado", 22, 115, null),
+                ("PrecioBasePorNoche", "Tarifa / Noche", 18, 100, "C2"),
+                ("Activa", "Activa", 10, 60, null));
         }
 
         public FrmHabitaciones(HotelAppContext app) : this()
@@ -105,56 +111,63 @@ namespace Hotel.WindowsForms.Views
 
                 var card = new Panel
                 {
-                    Width = 178,
-                    Height = 136,
+                    Width = 212,
+                    Height = 152,
                     Margin = new Padding(8),
                     BackColor = Color.White,
                     BorderStyle = BorderStyle.FixedSingle,
                     Cursor = Cursors.Hand
                 };
 
-                var barra = new Panel { Dock = DockStyle.Top, Height = 8, BackColor = acento };
+                var barra = new Panel { Dock = DockStyle.Top, Height = 7, BackColor = acento };
                 var lblEstadoBadge = new Label
                 {
                     Text = h.EstadoOperativo.ToUpperInvariant(),
                     BackColor = acento,
-                    ForeColor = h.EstadoOperativo == "EnLimpieza" ? Color.Black : Color.White,
+                    ForeColor = Color.White,
                     Font = new Font("Segoe UI", 7.5f, FontStyle.Bold),
-                    Location = new Point(10, 14),
-                    Size = new Size(102, 18),
-                    TextAlign = ContentAlignment.MiddleCenter
+                    Location = new Point(12, 14),
+                    AutoSize = true,
+                    Padding = new Padding(8, 2, 8, 2)
                 };
                 var lblNum = new Label
                 {
                     Text = $"Hab. {h.Numero}",
                     Font = new Font("Georgia", 13f, FontStyle.Bold),
                     ForeColor = UiTheme.SidebarFondo,
-                    Location = new Point(10, 36),
-                    Size = new Size(156, 24)
+                    Location = new Point(12, 42),
+                    Size = new Size(186, 26),
+                    AutoEllipsis = true
                 };
                 var lblTipo = new Label
                 {
-                    Text = $"{h.TipoHabitacionNombre} (Piso {h.Piso})",
+                    Text = $"{h.TipoHabitacionNombre} - Piso {h.Piso}",
                     Font = new Font("Segoe UI", 8.5f),
                     ForeColor = UiTheme.TextoSuave,
-                    Location = new Point(10, 62),
-                    Size = new Size(156, 18)
+                    Location = new Point(12, 70),
+                    Size = new Size(186, 20),
+                    AutoEllipsis = true
                 };
                 var lblTarifa = new Label
                 {
                     Text = $"{h.PrecioBasePorNoche:C2} / noche",
-                    Font = new Font("Segoe UI", 9.5f, FontStyle.Bold),
+                    Font = new Font("Segoe UI", 10f, FontStyle.Bold),
                     ForeColor = UiTheme.DoradoHotel,
-                    Location = new Point(10, 84),
-                    Size = new Size(156, 20)
+                    Location = new Point(12, 94),
+                    Size = new Size(186, 22)
                 };
+                var extras = new List<string>();
+                if (h.TieneVistaMar) extras.Add("Vista Mar");
+                if (h.TieneJacuzzi) extras.Add("Jacuzzi");
+                if (h.TieneFrigobar) extras.Add("Frigobar");
                 var lblExtras = new Label
                 {
-                    Text = (h.TieneVistaMar ? "Vista Mar " : "") + (h.TieneJacuzzi ? "Jacuzzi" : ""),
+                    Text = extras.Count > 0 ? string.Join(" | ", extras) : "Estandar",
                     Font = new Font("Segoe UI", 8f, FontStyle.Bold),
                     ForeColor = Color.FromArgb(21, 128, 61),
-                    Location = new Point(10, 108),
-                    Size = new Size(156, 18)
+                    Location = new Point(12, 120),
+                    Size = new Size(186, 20),
+                    AutoEllipsis = true
                 };
 
                 EventHandler onSelect = (_, _) => CargarEnFormulario(h);

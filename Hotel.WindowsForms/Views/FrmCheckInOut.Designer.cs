@@ -176,15 +176,17 @@ namespace Hotel.WindowsForms.Views
             // pnlAcciones
             // 
             pnlAcciones.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            pnlAcciones.AutoScroll = true;
             pnlAcciones.BackColor = Color.White;
             pnlAcciones.BorderStyle = BorderStyle.FixedSingle;
             pnlAcciones.Controls.Add(grpCheckOut);
             pnlAcciones.Controls.Add(grpPago);
             pnlAcciones.Controls.Add(grpCheckIn);
             pnlAcciones.Controls.Add(lblResumenFolio);
-            pnlAcciones.Location = new Point(628, 62);
+            pnlAcciones.Location = new Point(620, 62);
             pnlAcciones.Name = "pnlAcciones";
-            pnlAcciones.Size = new Size(384, 562);
+            pnlAcciones.Padding = new Padding(8);
+            pnlAcciones.Size = new Size(392, 562);
             pnlAcciones.TabIndex = 3;
             // 
             // grpCheckOut
@@ -435,13 +437,13 @@ namespace Hotel.WindowsForms.Views
             // 
             // lblResumenFolio
             // 
-            lblResumenFolio.BackColor = Color.FromArgb(248, 250, 252);
+            lblResumenFolio.BackColor = Color.FromArgb(247, 245, 240);
             lblResumenFolio.BorderStyle = BorderStyle.FixedSingle;
-            lblResumenFolio.Font = new Font("Consolas", 9F);
+            lblResumenFolio.Font = new Font("Segoe UI", 9F);
             lblResumenFolio.Location = new Point(12, 10);
             lblResumenFolio.Name = "lblResumenFolio";
-            lblResumenFolio.Padding = new Padding(6);
-            lblResumenFolio.Size = new Size(358, 110);
+            lblResumenFolio.Padding = new Padding(8);
+            lblResumenFolio.Size = new Size(360, 114);
             lblResumenFolio.TabIndex = 0;
             lblResumenFolio.Text = "Seleccione una reservacion para ver su folio.";
             // 

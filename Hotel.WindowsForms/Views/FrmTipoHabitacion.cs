@@ -11,7 +11,12 @@ namespace Hotel.WindowsForms.Views
         public FrmTipoHabitacion()
         {
             InitializeComponent();
-            Helpers.UiTheme.EstilizarGrid(dgvTipos);
+            Helpers.UiTheme.ConfigurarColumnas(dgvTipos,
+                ("Nombre", "Tipo de Habitacion", 26, 130, null),
+                ("CapacidadAdultos", "Adultos", 12, 65, null),
+                ("CapacidadNinos", "Ninos", 12, 60, null),
+                ("PrecioBasePorNoche", "Tarifa Base", 18, 95, "C2"),
+                ("Descripcion", "Descripcion", 32, 160, null));
         }
 
         public FrmTipoHabitacion(HotelAppContext app) : this()

@@ -64,6 +64,7 @@ namespace Hotel.WindowsForms.Views
             // pnlDerecho
             // 
             pnlDerecho.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            pnlDerecho.AutoScroll = true;
             pnlDerecho.BackColor = Color.White;
             pnlDerecho.BorderStyle = BorderStyle.FixedSingle;
             pnlDerecho.Controls.Add(btnDesactivar);

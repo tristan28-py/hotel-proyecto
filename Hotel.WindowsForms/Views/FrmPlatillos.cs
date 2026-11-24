@@ -11,7 +11,12 @@ namespace Hotel.WindowsForms.Views
         public FrmPlatillos()
         {
             InitializeComponent();
-            Helpers.UiTheme.EstilizarGrid(dgvPlatillos);
+            Helpers.UiTheme.ConfigurarColumnas(dgvPlatillos,
+                ("Nombre", "Platillo", 32, 150, null),
+                ("CategoriaNombre", "Categoria", 22, 110, null),
+                ("Precio", "Precio", 16, 80, "C2"),
+                ("TiempoPreparacionMinutos", "Prep. (min)", 15, 75, null),
+                ("Disponible", "Disponible", 15, 75, null));
         }
 
         public FrmPlatillos(HotelAppContext app) : this()

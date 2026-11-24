@@ -80,6 +80,7 @@ namespace Hotel.WindowsForms.Views
             // pnlReservaResumen
             // 
             pnlReservaResumen.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            pnlReservaResumen.AutoScroll = true;
             pnlReservaResumen.BackColor = Color.White;
             pnlReservaResumen.BorderStyle = BorderStyle.FixedSingle;
             pnlReservaResumen.Controls.Add(btnConfirmarReserva);

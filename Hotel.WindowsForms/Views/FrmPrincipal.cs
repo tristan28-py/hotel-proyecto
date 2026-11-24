@@ -109,7 +109,7 @@ namespace Hotel.WindowsForms.Views
         private void btnMenuToggle_Click(object? sender, EventArgs e)
         {
             _menuExpandido = !_menuExpandido;
-            pnlMenuLateral.Width = _menuExpandido ? 236 : 56;
+            pnlMenuLateral.Width = _menuExpandido ? 242 : 56;
         }
 
         private void btnCerrarSesion_Click(object? sender, EventArgs e)

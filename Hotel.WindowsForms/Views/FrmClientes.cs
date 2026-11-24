@@ -12,8 +12,20 @@ namespace Hotel.WindowsForms.Views
         {
             InitializeComponent();
             cboTipoDoc.SelectedIndex = 0;
-            Helpers.UiTheme.EstilizarGrid(dgvClientes);
-            Helpers.UiTheme.EstilizarGrid(dgvHistorial);
+            Helpers.UiTheme.ConfigurarColumnas(dgvClientes,
+                ("TipoDocumento", "Tipo", 12, 70, null),
+                ("NumeroDocumento", "Documento", 18, 100, null),
+                ("Nombres", "Nombres", 20, 110, null),
+                ("Apellidos", "Apellidos", 20, 110, null),
+                ("Telefono", "Telefono", 16, 95, null),
+                ("EsClienteFrecuente", "VIP", 14, 55, null));
+            Helpers.UiTheme.ConfigurarColumnas(dgvHistorial,
+                ("Codigo", "Codigo", 20, 105, null),
+                ("HabitacionNumero", "Hab.", 12, 60, null),
+                ("FechaInicio", "Entrada", 18, 90, "dd/MM/yyyy"),
+                ("FechaFin", "Salida", 18, 90, "dd/MM/yyyy"),
+                ("Estado", "Estado", 16, 90, null),
+                ("CostoTotal", "Total", 16, 85, "C2"));
         }
 
         public FrmClientes(HotelAppContext app) : this()

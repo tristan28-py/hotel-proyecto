@@ -19,8 +19,20 @@ namespace Hotel.WindowsForms.Views
             dtpEntrada.Value = DateTime.Today.AddDays(1);
             dtpSalida.Value = DateTime.Today.AddDays(3);
             cboMetodo.SelectedIndex = 0;
-            UiTheme.EstilizarGrid(dgvMisReservas);
-            UiTheme.EstilizarGrid(dgvMisPagos);
+            UiTheme.ConfigurarColumnas(dgvMisReservas,
+                ("Codigo", "Codigo", 18, 110, null),
+                ("HabitacionNumero", "Hab.", 10, 55, null),
+                ("TipoHabitacionNombre", "Suite", 24, 130, null),
+                ("FechaInicio", "Entrada", 14, 85, "dd/MM/yyyy"),
+                ("FechaFin", "Salida", 14, 85, "dd/MM/yyyy"),
+                ("Estado", "Estado", 12, 95, null),
+                ("SaldoPendiente", "Saldo", 12, 85, "C2"));
+            UiTheme.ConfigurarColumnas(dgvMisPagos,
+                ("FechaPago", "Fecha", 26, 120, "dd/MM/yyyy HH:mm"),
+                ("Monto", "Monto", 18, 85, "C2"),
+                ("MetodoPago", "Metodo", 24, 110, null),
+                ("TipoComprobante", "Tipo", 14, 70, null),
+                ("NumeroComprobante", "Comprobante", 18, 100, null));
         }
 
         public FrmPortalHuesped(HotelAppContext app, int tabInicial = 0) : this()
@@ -145,8 +157,8 @@ namespace Hotel.WindowsForms.Views
             {
                 var card = new Panel
                 {
-                    Width = 290,
-                    Height = 195,
+                    Width = 294,
+                    Height = 202,
                     BackColor = Color.White,
                     Margin = new Padding(8),
                     BorderStyle = BorderStyle.FixedSingle
@@ -158,16 +170,18 @@ namespace Hotel.WindowsForms.Views
                     Text = $"{h.TipoHabitacionNombre} - Hab. {h.Numero}",
                     Font = new Font("Georgia", 11f, FontStyle.Bold),
                     ForeColor = UiTheme.SidebarFondo,
-                    Location = new Point(12, 18),
-                    Size = new Size(264, 24)
+                    Location = new Point(14, 18),
+                    Size = new Size(266, 24),
+                    AutoEllipsis = true
                 };
                 var lblCap = new Label
                 {
                     Text = $"Piso {h.Piso} | Hasta {h.CapacidadAdultos} adultos y {h.CapacidadNinos} ninos",
                     ForeColor = UiTheme.TextoSuave,
                     Font = new Font("Segoe UI", 8.5f),
-                    Location = new Point(12, 44),
-                    Size = new Size(264, 18)
+                    Location = new Point(14, 46),
+                    Size = new Size(266, 20),
+                    AutoEllipsis = true
                 };
 
                 var amenidades = new List<string>();
@@ -178,11 +192,12 @@ namespace Hotel.WindowsForms.Views
 
                 var lblAmen = new Label
                 {
-                    Text = string.Join(" | ", amenidades),
+                    Text = amenidades.Count > 0 ? string.Join(" | ", amenidades) : "Comodidades estandar",
                     ForeColor = Color.FromArgb(21, 128, 61),
                     Font = new Font("Segoe UI", 8.5f, FontStyle.Bold),
-                    Location = new Point(12, 68),
-                    Size = new Size(264, 36)
+                    Location = new Point(14, 70),
+                    Size = new Size(266, 36),
+                    AutoEllipsis = true
                 };
 
                 var lblPrecio = new Label
@@ -190,15 +205,15 @@ namespace Hotel.WindowsForms.Views
                     Text = $"{h.PrecioBasePorNoche:C2} / noche",
                     ForeColor = UiTheme.SidebarFondo,
                     Font = new Font("Segoe UI", 12f, FontStyle.Bold),
-                    Location = new Point(12, 112),
-                    Size = new Size(264, 24)
+                    Location = new Point(14, 114),
+                    Size = new Size(266, 26)
                 };
 
                 var btnSel = new Button
                 {
                     Text = "Cotizar y Seleccionar",
-                    Location = new Point(12, 146),
-                    Size = new Size(264, 34)
+                    Location = new Point(14, 150),
+                    Size = new Size(266, 36)
                 };
                 UiTheme.EstilizarBoton(btnSel, UiTheme.SidebarFondo);
                 btnSel.Click += async (_, _) => await SeleccionarSuiteAsync(h);
